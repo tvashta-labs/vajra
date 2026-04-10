@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .vajra-landing *,
+  .vajra-landing ::before,
+  .vajra-landing ::after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: #e5e7eb;
+  }
+  
+  .vajra-landing button {
+    cursor: pointer;
+    background-color: transparent;
+    background-image: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .vajra-landing a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+}

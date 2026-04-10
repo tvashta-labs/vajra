@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
-    "build": "docusaurus build",
+    "start": "tailwindcss -i ./src/css/tailwind-input.css -o ./src/css/tailwind-output.css --watch & docusaurus start",
+    "build": "tailwindcss -i ./src/css/tailwind-input.css -o ./src/css/tailwind-output.css && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -27,6 +27,9 @@
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.9",
+    "tailwindcss": "^3.4.19",
     "typescript": "~5.6.2"
   },
   "browserslist": {
