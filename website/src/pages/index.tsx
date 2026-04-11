@@ -31,8 +31,8 @@ export default function Home() {
             </a>
           </div>
           <div className="flex items-center gap-4 text-primary-container">
-            <button className="material-symbols-outlined p-2 hover:bg-surface-container-high transition-all active:scale-95 duration-75">terminal</button>
-            <button className="material-symbols-outlined p-2 hover:bg-surface-container-high transition-all active:scale-95 duration-75">code</button>
+            <button className="material-symbols-outlined p-2 bg-transparent border-none rounded-none hover:bg-surface-container-high transition-all active:scale-95 duration-75 cursor-pointer flex items-center justify-center text-primary-container">terminal</button>
+            <button className="material-symbols-outlined p-2 bg-transparent border-none rounded-none hover:bg-surface-container-high transition-all active:scale-95 duration-75 cursor-pointer flex items-center justify-center text-primary-container">code</button>
           </div>
         </nav>
 
@@ -51,10 +51,10 @@ export default function Home() {
                                   Outpace existing C++ based model loaders. Stream massive 15GB+ LLMs directly to PyTorch VRAM at blistering speeds.
                               </p>
           <div className="flex flex-wrap gap-3">
-          <button className="px-6 py-3 bg-primary-container text-black font-black uppercase tracking-widest text-xs hover:brightness-110 transition-all active:scale-95">
+          <button className="px-6 py-3 bg-primary-container text-black font-black uppercase tracking-widest text-xs hover:brightness-110 transition-all active:scale-95 border-none rounded-none cursor-pointer">
                                       View Benchmarks
                                   </button>
-          <button className="px-6 py-3 border border-outline text-white font-bold uppercase tracking-widest text-xs hover:bg-white/5 transition-all active:scale-95">
+          <button className="px-6 py-3 border border-outline text-white bg-transparent font-bold uppercase tracking-widest text-xs hover:bg-white/5 transition-all active:scale-95 rounded-none cursor-pointer">
                                       View on GitHub
                                   </button>
           </div>
@@ -178,28 +178,28 @@ export default function Home() {
           {/* Cyberpunk Graph */}
           <div className="h-64 flex items-end gap-6 md:gap-12 pb-8 border-b-2 border-l-2 border-outline-variant relative">
           {/* Y-axis labels */}
-          <div className="absolute -left-10 bottom-0 flex flex-col justify-between h-full text-[10px] font-bold font-mono text-on-surface-variant py-2">
-          <span>25s</span>
-          <span>15s</span>
-          <span>5s</span>
-          <span>0s</span>
+          <div className="absolute -left-12 top-0 bottom-8 w-10 text-[10px] font-bold font-mono text-on-surface-variant">
+            <span className="absolute right-0 top-0 -translate-y-1/2">25s</span>
+            <span className="absolute right-0 top-[40%] -translate-y-1/2">15s</span>
+            <span className="absolute right-0 top-[80%] -translate-y-1/2">5s</span>
+            <span className="absolute right-0 bottom-0 translate-y-1/2">0s</span>
           </div>
           {/* Standard Loader Bar */}
-          <div className="flex-1 relative flex flex-col justify-end group">
+          <div className="flex-1 relative flex flex-col justify-end group h-full">
           <div className="w-full bg-outline-variant h-[81.2%] relative transition-all group-hover:brightness-125">
           <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-sm font-bold font-mono text-on-surface">20.3s</div>
           </div>
           <div className="absolute -bottom-6 w-full text-center text-[10px] font-mono uppercase tracking-widest text-on-surface-variant font-bold">Standard</div>
           </div>
           {/* Competitor B Bar */}
-          <div className="flex-1 relative flex flex-col justify-end group">
+          <div className="flex-1 relative flex flex-col justify-end group h-full">
           <div className="w-full bg-outline-variant/60 h-[58%] relative transition-all group-hover:brightness-125">
           <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-sm font-bold font-mono text-on-surface">14.5s</div>
           </div>
           <div className="absolute -bottom-6 w-full text-center text-[10px] font-mono uppercase tracking-widest text-on-surface-variant font-bold">vLLM Load</div>
           </div>
           {/* Vajra Bar */}
-          <div className="flex-1 relative flex flex-col justify-end group">
+          <div className="flex-1 relative flex flex-col justify-end group h-full">
           <div className="w-full bg-primary-container h-[14%] relative shadow-[0_0_20px_rgba(0,245,255,0.4)] transition-all">
           <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-lg font-black text-primary-container glow-cyan">3.51s</div>
           <div className="absolute inset-0 animate-pulse bg-white/20"></div>
