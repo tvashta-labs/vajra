@@ -1,12 +1,13 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Head from '@docusaurus/Head';
+import { Terminal, Code, CheckCircle, Cloud, Cpu, Zap } from 'lucide-react';
 
 export default function Home() {
   return (
     <Layout title="Vajra" description="Model streaming beyond the disk tax" noFooter>
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <style>{`
           .navbar { display: none !important; }
         `}</style>
@@ -31,8 +32,8 @@ export default function Home() {
             </a>
           </div>
           <div className="flex items-center gap-4 text-primary-container">
-            <button className="material-symbols-outlined p-2 bg-transparent border-none rounded-none hover:bg-surface-container-high transition-all active:scale-95 duration-75 cursor-pointer flex items-center justify-center text-primary-container">terminal</button>
-            <button className="material-symbols-outlined p-2 bg-transparent border-none rounded-none hover:bg-surface-container-high transition-all active:scale-95 duration-75 cursor-pointer flex items-center justify-center text-primary-container">code</button>
+            <button className="p-2 bg-transparent border-none rounded-none hover:bg-surface-container-high transition-all active:scale-95 duration-75 cursor-pointer flex items-center justify-center text-primary-container"><Terminal size={24} strokeWidth={1.5} /></button>
+            <button className="p-2 bg-transparent border-none rounded-none hover:bg-surface-container-high transition-all active:scale-95 duration-75 cursor-pointer flex items-center justify-center text-primary-container"><Code size={24} strokeWidth={1.5} /></button>
           </div>
         </nav>
 
@@ -95,15 +96,15 @@ export default function Home() {
                                   </p>
           <div className="space-y-4">
           <div className="flex items-center gap-3 text-sm font-mono text-on-surface">
-          <span className="material-symbols-outlined text-primary-container text-lg font-bold">check_circle</span>
+          <CheckCircle className="text-primary-container w-5 h-5" />
           <span>Python 3.10+ Support</span>
           </div>
           <div className="flex items-center gap-3 text-sm font-mono text-on-surface">
-          <span className="material-symbols-outlined text-primary-container text-lg font-bold">check_circle</span>
+          <CheckCircle className="text-primary-container w-5 h-5" />
           <span>PyTorch 2.0+ Native</span>
           </div>
           <div className="flex items-center gap-3 text-sm font-mono text-on-surface">
-          <span className="material-symbols-outlined text-primary-container text-lg font-bold">check_circle</span>
+          <CheckCircle className="text-primary-container w-5 h-5" />
           <span>NVIDIA/AMD GPU Support</span>
           </div>
           </div>
@@ -290,14 +291,14 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="p-8 bg-surface-container border-2 border-outline-variant/30">
-          <span className="material-symbols-outlined text-tertiary-container mb-4 font-bold">cloud</span>
+          <Cloud className="text-tertiary-container mb-4 w-6 h-6" />
           <h4 className="text-lg font-black mb-2 text-white uppercase">Hardware A: Modest</h4>
           <p className="text-sm text-on-surface-variant mb-4 font-medium">2-vCPU Azure VM</p>
           <div className="text-4xl font-black text-primary-container">3.73 <span className="text-sm font-bold text-on-surface-variant">Gbps</span></div>
           <p className="text-[10px] text-tertiary-container uppercase mt-4 tracking-widest font-black">Exceeding Hypervisor Limits</p>
           </div>
           <div className="p-8 bg-surface-container border-2 border-outline-variant/30">
-          <span className="material-symbols-outlined text-secondary-container mb-4 font-bold">memory</span>
+          <Cpu className="text-secondary-container mb-4 w-6 h-6" />
           <h4 className="text-lg font-black mb-2 text-white uppercase">Hardware B: Heavy Metal</h4>
           <p className="text-sm text-on-surface-variant mb-4 font-medium">Vultr NVIDIA A16-16Q</p>
           <div className="text-4xl font-black text-primary-container">5.82 <span className="text-sm font-bold text-on-surface-variant">Gbps</span></div>
@@ -374,21 +375,21 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-2 border-outline-variant/40">
           <div className="group p-12 bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/20 transition-all">
           <div className="mb-8 w-14 h-14 bg-primary-container/20 flex items-center justify-center text-primary-container border border-primary-container/30">
-          <span className="material-symbols-outlined" style={{fontVariationSettings: '"FILL" 1'}}>bolt</span>
+          <Zap className="w-8 h-8" strokeWidth={1.5} />
           </div>
           <h3 className="text-2xl font-black mb-4 uppercase tracking-tight text-white">Insane Concurrency</h3>
           <p className="text-on-surface-variant text-sm font-medium leading-relaxed">Our optimized network tier pulls thousands of byte-ranges simultaneously, saturating even the fattest fiber pipes.</p>
           </div>
           <div className="group p-12 bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/20 transition-all relative">
           <div className="mb-8 w-14 h-14 bg-secondary-container/20 flex items-center justify-center text-secondary-container border border-secondary-container/30">
-          <span className="material-symbols-outlined" style={{fontVariationSettings: '"FILL" 1'}}>terminal</span>
+          <Terminal className="w-8 h-8" strokeWidth={1.5} />
           </div>
           <h3 className="text-2xl font-black mb-4 uppercase tracking-tight text-white">True Zero-Copy</h3>
           <p className="text-on-surface-variant text-sm font-medium leading-relaxed">Streaming directly into PyTorch VRAM via the PCIe bus during the download process. No OS context switching.</p>
           </div>
           <div className="group p-12 bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/20 transition-all">
           <div className="mb-8 w-14 h-14 bg-tertiary-container/20 flex items-center justify-center text-tertiary-container border border-tertiary-container/30">
-          <span className="material-symbols-outlined" style={{fontVariationSettings: '"FILL" 1'}}>memory_alt</span>
+          <Cpu className="w-8 h-8" strokeWidth={1.5} />
           </div>
           <h3 className="text-2xl font-black mb-4 uppercase tracking-tight text-white">Decoupled Disk</h3>
           <p className="text-on-surface-variant text-sm font-medium leading-relaxed">Bypassing standard OS bottlenecks by writing directly to mapped memory spaces, avoiding the "Dirty Page" trap.</p>
