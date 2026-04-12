@@ -12,7 +12,9 @@ export default function Home() {
           .navbar { display: none !important; }
         `}</style>
       </Head>
-
+      <style>{`
+        .navbar { display: none !important; }
+      `}</style>
       <div className="vajra-landing">
         <nav className="fixed top-0 w-full z-50 border-b border-outline-variant/30 bg-background/90 backdrop-blur-xl flex justify-between items-center px-8 py-4">
           <div className="text-xl font-bold tracking-tighter text-primary-container uppercase font-['Space_Grotesk']">
