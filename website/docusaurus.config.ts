@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 function tailwindPlugin(context, options) {
@@ -45,9 +45,7 @@ const config: Config = {
     locales: ['en'],
   },
 
-  plugins: [
-    tailwindPlugin,
-  ],
+  plugins: [tailwindPlugin],
 
   presets: [
     [
@@ -93,9 +91,13 @@ const config: Config = {
     navbar: {
       title: 'Vajra',
       items: [
-        {type: 'doc', docId: 'intro', position: 'left', label: 'Docs'},
-        {to: '/blog', label: 'Benchmarks', position: 'left'},
-        {href: 'https://github.com/tvashta-labs/vajra', label: 'GitHub', position: 'right'},
+        { type: 'doc', docId: 'intro', position: 'left', label: 'Docs' },
+        { to: '/blog', label: 'Benchmarks', position: 'left' },
+        {
+          href: 'https://github.com/tvashta-labs/vajra',
+          label: 'GitHub',
+          position: 'right',
+        },
       ],
     },
     footer: {

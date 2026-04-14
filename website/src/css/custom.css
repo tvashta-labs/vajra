@@ -1,4 +1,6 @@
 @import './tailwind-output.css';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/space-grotesk';
 
 /**
  * Any CSS included here will be global. The classic template
@@ -32,24 +34,47 @@
 }
 
 /* --- Vajra Landing Page Custom Styles --- */
-.vajra-landing { 
-    font-family: 'Inter', sans-serif; 
+.vajra-landing {
+  font-family: 'Inter Variable', sans-serif;
 }
-.vajra-landing h1, .vajra-landing h2, .vajra-landing h3, .vajra-landing h4, .vajra-landing .label-text { 
-    font-family: 'Space Grotesk', sans-serif; 
+.vajra-landing h1,
+.vajra-landing h2,
+.vajra-landing h3,
+.vajra-landing h4,
+.vajra-landing .label-text {
+  font-family: 'Space Grotesk Variable', sans-serif;
 }
 .vajra-landing .grid-bg {
-    background-image: linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
-    background-size: 24px 24px;
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
-.vajra-landing .glow-cyan { filter: drop-shadow(0 0 12px rgba(0, 245, 255, 0.5)); }
-.vajra-landing .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.vajra-landing .glow-cyan {
+  filter: drop-shadow(0 0 12px rgba(0, 245, 255, 0.5));
+}
+.vajra-landing .material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
 @keyframes flow {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 .vajra-landing .animate-flow {
-    background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.4), transparent);
-    background-size: 200% 100%;
-    animation: flow 2.5s infinite linear;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 245, 255, 0.4),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: flow 2.5s infinite linear;
 }
