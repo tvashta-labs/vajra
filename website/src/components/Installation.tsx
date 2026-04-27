@@ -37,11 +37,11 @@ export const Installation: React.FC = () => {
               {/* Terminal Body */}
               <div className="p-8 font-mono text-sm leading-relaxed text-on-surface bg-[#05070a]">
                 <div className="mb-2">
-                  <span className="text-secondary-container font-bold">$</span> <span className="text-white font-bold">pip install vibe-streamer</span>
+                  <span className="text-secondary-container font-bold">$</span> <span className="text-white font-bold">pip install vajra</span>
                 </div>
                 <div className="space-y-1">
                   <div className="mt-4">
-                    <span className="text-tertiary-fixed font-bold">from</span> vibe_streamer <span className="text-tertiary-fixed font-bold">import</span> VibeStreamer, StreamConfig
+                    <span className="text-tertiary-fixed font-bold">from</span> vajra <span className="text-tertiary-fixed font-bold">import</span> Vajra, StreamConfig
                   </div>
                   <div>config = StreamConfig(</div>
                   <div className="pl-4">auth_token=<span className="text-secondary-container">"hf_..."</span>,</div>
@@ -52,7 +52,7 @@ export const Installation: React.FC = () => {
                   <div>)</div>
                   <div>url = <span className="text-secondary-container">"meta-llama/Meta-Llama-3-8B"</span></div>
                   <div>
-                    <span className="text-tertiary-fixed font-bold">with</span> VibeStreamer(config) <span className="text-tertiary-fixed font-bold">as</span> streamer:
+                    <span className="text-tertiary-fixed font-bold">with</span> Vajra(config) <span className="text-tertiary-fixed font-bold">as</span> streamer:
                   </div>
                   <div className="pl-4">tensors = streamer.load(url)</div>
                   <div className="pl-4">

@@ -5,11 +5,6 @@ export const Hero: React.FC = () => {
     <section className="relative px-8 md:px-24 overflow-hidden py-8 md:py-12">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
         <div className="flex-1 z-10">
-          <div className="inline-block bg-primary-container/10 border-l-2 border-primary-container mb-4 px-2 py-0.5">
-            <span className="text-primary-container font-label uppercase font-bold text-[10.6px] tracking-[0.5em]">
-              Stream .safetensors model weights from Hugging Face into GPU memory while they download.
-            </span>
-          </div>
           <h1 className="text-4xl md:text-6xl font-black leading-[1] tracking-tighter mb-4 text-white">
             High-Performance<br />Model Streamer
           </h1>
@@ -54,13 +49,13 @@ export const Hero: React.FC = () => {
             </div>
             <div className="mt-8 pt-4 border-t border-outline-variant/40 flex justify-between items-center">
               <span className="text-lg font-mono text-on-surface-variant uppercase tracking-widest font-bold">Performance Delta</span>
-              <span className="text-secondary-fixed font-black text-lg">1.59x Faster</span>
+              <span className="text-secondary-fixed font-black text-lg">59% Faster</span>
             </div>
             <p className="mt-4 text-[10.1px] font-mono text-on-surface-variant/60 uppercase tracking-wider leading-relaxed">
               Measured from request start to model weights staged in memory on the same model, machine, and network.
             </p>
             <p className="mt-2 text-l font-mono text-primary-container uppercase tracking-wider leading-relaxed font-bold">
-              GPU transfer began at 3.20s
+              GPU loading began at 3.20s
             </p>
 
           </div>
