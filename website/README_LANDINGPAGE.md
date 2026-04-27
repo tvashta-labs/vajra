@@ -73,3 +73,26 @@ pnpm build
 1.  **Docusaurus Navbar Class Change:** We hide the default Docusaurus navbar on the homepage using `.navbar { display: none !important; }`. If a future Docusaurus update renames this class (e.g., to `.docusaurus-navbar`), the homepage will suddenly display two stacked navbars. You will need to inspect the page and update the class name in `src/pages/index.tsx`.
 2.  **Tailwind Content Purging:** Always ensure new directories containing React components are added to the `tailwind.config.js` `content` array.
 3.  **Asset References:** Static assets like images or SVGs (e.g., `icons.svg`) should reside in the `static/` directory and be referenced with absolute paths (e.g., `/img/hero.png` or `/icons.svg`) rather than relative imports.
+
+---
+
+## ⚠️ Important: After Editing Component Files
+
+`pnpm start` runs the Tailwind watcher automatically, so you won't need to think about this during active development. However, if you **edit a component outside of a running dev server** (e.g., you make changes and then start the server fresh), the `tailwind-output.css` file on disk may be stale and missing any new utility classes you added.
+
+**Symptom:** Styles are missing or elements appear unsized/invisible even though the JSX looks correct.
+
+**Fix:** Manually recompile Tailwind once before starting the server:
+
+```bash
+# Ensure you are in the website directory
+cd website
+
+# Recompile Tailwind CSS
+pnpm tailwindcss -i ./src/css/tailwind-input.css -o ./src/css/tailwind-output.css
+
+# Then start the dev server as normal
+pnpm start
+```
+
+**Why this happens:** Tailwind uses a compile-time content scan to generate only the CSS classes that appear in your source files. If a component is edited while the watcher is not running, the new classes are never added to `tailwind-output.css`. The JSX renders, but the browser finds no matching CSS rule — so the element appears unstyled.
