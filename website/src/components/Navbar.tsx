@@ -4,7 +4,7 @@ export const Navbar: React.FC = () => {
   return (
     <nav className="fixed top-0 w-full z-50 border-b border-outline-variant/30 bg-background/90 backdrop-blur-xl flex justify-between items-center px-8 py-4">
       <div className="text-2xl font-bold tracking-tighter text-primary-container uppercase font-headline">
-        Vajra
+        ⚡ Vajra
       </div>
       <div className="hidden md:flex gap-8 items-center font-headline tracking-tight text-lg">
         <Link className="text-on-surface-variant font-medium hover:text-primary-container transition-colors" to="/docs/intro">
