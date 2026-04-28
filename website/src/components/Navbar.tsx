@@ -7,7 +7,7 @@ export const Navbar: React.FC = () => {
         ⚡ Vajra
       </div>
       <div className="hidden md:flex gap-8 items-center font-headline tracking-tight text-lg">
-        <Link className="text-on-surface-variant font-medium hover:text-primary-container transition-colors" to="/docs/intro">
+        <Link className="text-on-surface-variant font-medium hover:text-primary-container transition-colors" to="/docs/quick-start">
           Docs
         </Link>
         <a className="text-on-surface-variant font-medium hover:text-primary-container transition-colors" href="https://github.com/tvashta-labs/vajra">

@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
         <a className="font-body text-xs uppercase tracking-[0.2em] text-on-surface-variant font-bold hover:text-white transition-all" href="https://github.com/tvashta-labs/vajra">
           Github
         </a>
-        <Link className="font-body text-xs uppercase tracking-[0.2em] text-on-surface-variant font-bold hover:text-white transition-all" to="/docs/intro">
+        <Link className="font-body text-xs uppercase tracking-[0.2em] text-on-surface-variant font-bold hover:text-white transition-all" to="/docs/quick-start">
           Documentation
         </Link>
       </div>
