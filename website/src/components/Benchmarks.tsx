@@ -46,7 +46,7 @@ export const Benchmarks: React.FC = () => {
                     <div className="flex items-center gap-2">
                       <div className="h-4 w-4 bg-outline-variant"></div>
                       <span className="font-mono text-base font-bold uppercase tracking-widest text-white">
-                        HF Baseline
+                        hf_transfer
                       </span>
                     </div>
                   </div>
@@ -75,7 +75,7 @@ export const Benchmarks: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Hugging Face baseline */}
+                {/* hf_transfer bar */}
                 <div className="group relative flex h-full w-40 md:w-56 flex-col justify-end">
                   <div className="relative w-full bg-outline-variant transition-all group-hover:brightness-125" style={{ height: '91.5%' }}>
                     <div className="absolute -top-10 left-1/2 -translate-x-1/2 font-mono text-xl font-bold text-on-surface-variant">
@@ -83,7 +83,7 @@ export const Benchmarks: React.FC = () => {
                     </div>
                   </div>
                   <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full text-center font-mono text-sm md:text-base font-bold uppercase tracking-[0.1em] text-on-surface-variant whitespace-nowrap">
-                    HF Baseline
+                    hf_transfer
                   </div>
                 </div>
 
@@ -106,8 +106,7 @@ export const Benchmarks: React.FC = () => {
               </div>
               <p className="mt-8 pt-6 border-t border-outline-variant/40 text-sm font-mono text-on-surface-variant leading-relaxed">
                 Vajra moved 14.96GB of Llama 3 8B .safetensors weights through the streaming pipeline 59% faster in this run.<br /><br />
-                Baseline used Hugging Face hf_transfer; Vajra ran with cache disabled.
-              </p>
+                Comparison used <a href="https://github.com/huggingface/hf_transfer" target="_blank" rel="noopener noreferrer" className="text-primary-container hover:underline">hf_transfer</a> — HuggingFace&apos;s Rust-backed downloader (HF_HUB_ENABLE_HF_TRANSFER=1).              </p>
             </div>
           </div>
 
@@ -133,7 +132,7 @@ export const Benchmarks: React.FC = () => {
                   </div>
                   <div className="relative">
                     <div className="flex justify-between text-base font-mono mb-2">
-                      <span className="text-on-surface-variant font-medium">Download full model with Hugging Face</span>
+                      <span className="text-on-surface-variant font-medium">Download full model with hf_transfer</span>
                       <span className="text-on-surface-variant font-bold">32.04s</span>
                     </div>
                     <div className="h-8 bg-surface-container-lowest w-full border border-outline-variant/30 relative mb-2">
@@ -203,7 +202,7 @@ export const Benchmarks: React.FC = () => {
               </div>
               <div className="mt-16 pt-6 border-t border-outline-variant/30">
                 <p className="text-sm font-mono text-on-surface-variant leading-relaxed">
-                  In this benchmark, Vajra started GPU transfer at 3.20s, while the 14.96GB download/RAM staging path completed in 20.14s. The Hugging Face baseline download completed in 32.04s.
+                  In this benchmark, Vajra started GPU transfer at 3.20s, while the 14.96GB download/RAM staging path completed in 20.14s. The <a href="https://github.com/huggingface/hf_transfer" target="_blank" rel="noopener noreferrer" className="text-primary-container hover:underline">hf_transfer</a> download completed in 32.04s.
                 </p>
               </div>
             </div>
