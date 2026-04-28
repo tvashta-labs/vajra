@@ -91,7 +91,7 @@ const config: Config = {
     navbar: {
       title: '⚡ Vajra',
       items: [
-        { type: 'doc', docId: 'intro', position: 'left', label: 'Docs' },
+        { type: 'doc', docId: 'overview', position: 'left', label: 'Docs' },
         { to: '/blog', label: 'Benchmarks', position: 'left' },
         {
           href: 'https://github.com/tvashta-labs/vajra',
@@ -108,7 +108,7 @@ const config: Config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/docs/intro',
+              to: '/docs/overview',
             },
           ],
         },

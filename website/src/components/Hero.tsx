@@ -12,7 +12,7 @@ export const Hero: React.FC = () => {
             Load models faster by overlapping download, RAM staging,&nbsp;<br />and CUDA transfer.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link to="/docs/intro" className="px-6 py-3 bg-primary-container text-black font-black uppercase tracking-widest text-sm hover:brightness-110 transition-all active:scale-95 no-underline hover:no-underline">
+            <Link to="/docs/quick-start" className="px-6 py-3 bg-primary-container text-black font-black uppercase tracking-widest text-sm hover:brightness-110 transition-all active:scale-95 no-underline hover:no-underline">
               Get Started
             </Link>
             <Link to="/blog" className="px-6 py-3 border border-outline text-white font-bold uppercase tracking-widest text-sm hover:bg-white/5 transition-all active:scale-95 flex items-center justify-center no-underline hover:no-underline">
