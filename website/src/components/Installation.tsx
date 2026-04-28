@@ -16,7 +16,7 @@ export const Installation: React.FC = () => {
               Install the Python package and start streaming models from Python.&nbsp;<br /><br />
               Load Hugging Face .safetensors models directly into PyTorch tensors with one Python call.
             </p>
-            <Link to="/docs/intro" className="inline-block mt-8 px-8 py-4 bg-primary-container text-black font-black uppercase tracking-[0.2em] text-sm hover:brightness-110 transition-all active:scale-95 shadow-[0_0_20px_rgba(0,245,255,0.2)] no-underline hover:no-underline">
+            <Link to="/docs/quick-start" className="inline-block mt-8 px-8 py-4 bg-primary-container text-black font-black uppercase tracking-[0.2em] text-sm hover:brightness-110 transition-all active:scale-95 shadow-[0_0_20px_rgba(0,245,255,0.2)] no-underline hover:no-underline">
               Get Started
             </Link>
           </div>
