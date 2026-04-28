@@ -89,7 +89,7 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'Vajra',
+      title: '⚡ Vajra',
       items: [
         { type: 'doc', docId: 'intro', position: 'left', label: 'Docs' },
         { to: '/blog', label: 'Benchmarks', position: 'left' },
@@ -143,7 +143,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Tvashta Labs.`,
     },
     prism: {
       theme: prismThemes.github,

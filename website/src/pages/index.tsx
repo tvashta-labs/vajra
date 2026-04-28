@@ -18,7 +18,7 @@ export default function Home() {
       `}</style>
       <div className="vajra-landing">
         <Navbar />
-        <main className="grid-bg min-h-screen pt-16">
+        <main className="min-h-screen pt-16">
           <Hero />
           <Installation />
           <Benchmarks />
