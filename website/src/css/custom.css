@@ -10,27 +10,154 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  /* Kinetic Industrialism Theme */
+  --ifm-color-primary: #00f5ff; /* primary_container */
+  --ifm-color-primary-dark: #00dce5; /* surface_tint */
+  --ifm-color-primary-darker: #00c3cc;
+  --ifm-color-primary-darkest: #00a1a8;
+  --ifm-color-primary-light: #33f7ff;
+  --ifm-color-primary-lighter: #4df8ff;
+  --ifm-color-primary-lightest: #80fbff;
+
+  --ifm-color-secondary: #79ff5a; /* neon lime */
+
+  /* Typography: Precision Editorial */
+  --ifm-font-family-base: 'Inter Variable', sans-serif;
+  --ifm-heading-font-family: 'Space Grotesk Variable', sans-serif;
+  --ifm-heading-font-weight: 700;
+  --ifm-heading-letter-spacing: -0.02em;
+
+  /* 0px Rigidity */
+  --ifm-global-radius: 0px;
+  --ifm-button-border-radius: 0px;
+  --ifm-card-border-radius: 0px;
+  --ifm-pre-border-radius: 0px;
+  --ifm-alert-border-radius: 0px;
+  --ifm-pagination-nav-border-radius: 0px;
+  --ifm-toc-border-radius: 0px;
+  --ifm-dropdown-border-radius: 0px;
+
+  /* Shadows - remove them, use glows for active states */
+  --ifm-global-shadow-lw: none;
+  --ifm-global-shadow-md: none;
+  --ifm-global-shadow-tl: none;
+
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 245, 255, 0.1);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+/* Force dark mode colors for the entire site */
+[data-theme='dark'],
+[data-theme='light'] {
+  --ifm-background-color: #10141a; /* Base background */
+  --ifm-background-surface-color: #161b22; /* surface_container_low */
+  --ifm-color-content: #e9feff; /* primary for text */
+  --ifm-color-content-secondary: #a0b0b0;
+
+  /* The "No-Line" Rule & Ghost Border Fallback */
+  --ifm-toc-border-color: rgba(58, 73, 74, 0.2); /* outline_variant at 20% */
+  --ifm-color-emphasis-200: rgba(58, 73, 74, 0.2);
+  --ifm-color-emphasis-300: rgba(58, 73, 74, 0.3);
+
+  /* Navbar */
+  --ifm-navbar-background-color: rgba(16, 20, 26, 0.9); /* background with blur */
+  --ifm-navbar-shadow: none;
+
+  /* Footer */
+  --ifm-footer-background-color: #161b22;
+  --ifm-footer-color: var(--ifm-color-content-secondary);
+  --ifm-footer-link-color: var(--ifm-color-content);
+  --ifm-footer-title-color: var(--ifm-color-primary);
+
+  /* Code Blocks */
+  --prism-background-color: #161b22;
+
+  /* Menu */
+  --ifm-menu-color-active: var(--ifm-color-primary);
+  --ifm-menu-color-background-active: rgba(0, 245, 255, 0.1);
+  --ifm-menu-color-background-hover: rgba(0, 245, 255, 0.05);
+}
+
+/* Global Grid Texture */
+body {
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px) !important;
+  background-size: 24px 24px !important;
+  background-attachment: fixed !important;
+}
+
+/* Glass & Gradient Rule for Navbar */
+.navbar {
+  background-color: rgba(16, 20, 26, 0.9) !important; /* background with 90% opacity */
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(58, 73, 74, 0.3) !important; /* Ghost Border */
+  box-shadow: none !important;
+}
+
+.navbar__title {
+  font-family: 'Space Grotesk Variable', sans-serif;
+  text-transform: uppercase;
+  color: var(--ifm-color-primary) !important;
+  letter-spacing: -0.02em;
+}
+
+.navbar__item {
+  font-family: 'Space Grotesk Variable', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Sidebar */
+.theme-doc-sidebar-container {
+  border-right: none !important;
+  background-color: var(--ifm-background-surface-color) !important;
+}
+
+/* Buttons */
+.button--primary {
+  background-color: var(--ifm-color-primary) !important;
+  color: #10141a !important; /* on_primary_container */
+  border: none !important;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+.button--primary:hover {
+  background-color: #00dce5 !important; /* primary_fixed */
+  box-shadow: 0 0 12px rgba(0, 220, 229, 0.15) !important; /* Ambient Glow */
+}
+.button--secondary {
+  background-color: transparent !important;
+  color: var(--ifm-color-content) !important;
+  border: 1px solid rgba(58, 73, 74, 0.2) !important; /* Ghost Border */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+.button--secondary:hover {
+  border-color: var(--ifm-color-secondary) !important;
+  box-shadow: 0 0 4px var(--ifm-color-secondary) !important;
+}
+
+/* Interactive Cards */
+.card {
+  background-color: #1c222b !important; /* surface_container_highest */
+  border: none !important;
+}
+
+/* Input Fields */
+.navbar__search-input {
+  background-color: #161b22 !important; /* surface_container_low */
+  border: none !important;
+  border-bottom: 1px solid rgba(58, 73, 74, 0.2) !important;
+  border-radius: 0 !important;
+}
+.navbar__search-input:focus {
+  border-bottom: 2px solid var(--ifm-color-primary) !important;
+}
+
+/* Active Links */
+.menu__link--active,
+.pagination-nav__link:hover,
+.navbar__link--active {
+  background-color: rgba(0, 245, 255, 0.1) !important;
+  color: var(--ifm-color-primary) !important;
 }
 
 /* --- Vajra Landing Page Custom Styles --- */
@@ -40,15 +167,13 @@
 .vajra-landing h1,
 .vajra-landing h2,
 .vajra-landing h3,
-.vajra-landing h4,
-.vajra-landing .label-text {
+.vajra-landing h4 {
   font-family: 'Space Grotesk Variable', sans-serif;
 }
-.vajra-landing .grid-bg {
-  background-image:
-    linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
-  background-size: 24px 24px;
+.label-text {
+  font-family: 'Space Grotesk Variable', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 .vajra-landing .glow-cyan {
   filter: drop-shadow(0 0 12px rgba(0, 245, 255, 0.5));
