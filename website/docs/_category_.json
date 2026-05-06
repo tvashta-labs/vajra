@@ -1,8 +1,8 @@
 {
-  "label": "Vibe Streamer Python",
+  "label": "Vajra Python",
   "position": 1,
   "link": {
     "type": "generated-index",
-    "description": "Install, configure, stream Hugging Face models, and troubleshoot the vibe-streamer Python library."
+    "description": "Install, configure, stream Hugging Face models, and troubleshoot the Vajra Python library."
   }
 }

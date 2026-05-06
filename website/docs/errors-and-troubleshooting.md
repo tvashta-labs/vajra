@@ -5,7 +5,7 @@ sidebar_label: Errors and Troubleshooting
 
 # Errors and Troubleshooting
 
-`VibeStreamer.load()` maps native return codes to Python exceptions.
+`VajraStreamer.load()` maps native return codes to Python exceptions.
 
 | Exception | Meaning |
 |---|---|
@@ -15,17 +15,17 @@ sidebar_label: Errors and Troubleshooting
 
 ## Import Fails With `OSError`
 
-What this usually means: Python found the `vibe_streamer` package, but could not load `libvibestreamer`.
+What this usually means: Python found the `vajra` package, but could not load `libvajra`.
 
 Check that the native library exists in one of these locations:
 
 ```text
-python/vibe_streamer/libvibestreamer.so
-python/libvibestreamer.so
-libvibestreamer.so
+python/vajra/libvajra.so
+python/libvajra.so
+libvajra.so
 ```
 
-On macOS, use `libvibestreamer.dylib`.
+On macOS, use `libvajra.dylib`.
 
 ## `ConnectionError`
 
@@ -52,9 +52,9 @@ Try:
 - Reducing competing GPU workloads.
 - Restarting the Python process if previous CUDA allocations are still held.
 
-## Raw `VibeGPUTensor` Values
+## Raw `VajraGPUTensor` Values
 
-If a tensor cannot be converted with `torch.as_tensor(..., device="cuda")`, the returned dictionary can contain a raw `VibeGPUTensor`.
+If a tensor cannot be converted with `torch.as_tensor(..., device="cuda")`, the returned dictionary can contain a raw `VajraGPUTensor`.
 
 ```python
 for name, tensor in tensors.items():
@@ -68,6 +68,6 @@ This usually points to a dtype conversion issue or a PyTorch/CUDA compatibility 
 
 ## Process Exit Looks Abrupt
 
-Importing `vibe_streamer` registers `os._exit(0)` as an `atexit` handler. This bypasses normal Python shutdown to avoid a native D runtime shutdown segfault.
+Importing `vajra` registers `os._exit(0)` as an `atexit` handler. This bypasses normal Python shutdown to avoid a native D runtime shutdown segfault.
 
 The practical consequence: shutdown callbacks, some `atexit` handlers, and cleanup code after the interpreter begins exiting may not run normally. Put important cleanup before the end of the script, not in process-shutdown hooks.

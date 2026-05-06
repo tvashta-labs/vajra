@@ -8,7 +8,7 @@ sidebar_label: Quick Start
 This is the smallest normal usage pattern:
 
 ```python
-from vibe_streamer import VibeStreamer, StreamConfig
+from vajra import VajraStreamer, StreamConfig
 
 config = StreamConfig(
     auth_token="hf_...",   # Required for gated Hugging Face models.
@@ -19,7 +19,7 @@ config = StreamConfig(
     log_level=4,           # 4 = info
 )
 
-with VibeStreamer(config) as streamer:
+with VajraStreamer(config) as streamer:
     tensors = streamer.load("Qwen/Qwen2.5-0.5B-Instruct")
 
     for name, tensor in tensors.items():
@@ -32,10 +32,10 @@ with VibeStreamer(config) as streamer:
 
 ## Keep Tensor Work Inside `with`
 
-The returned tensors point at GPU memory owned by the native library. When the `with` block exits, `VibeStreamer` frees that memory.
+The returned tensors point at GPU memory owned by the native library. When the `with` block exits, `VajraStreamer` frees that memory.
 
 ```python
-with VibeStreamer(config) as streamer:
+with VajraStreamer(config) as streamer:
     tensors = streamer.load("owner/model")
     first_tensor = next(iter(tensors.values()))
     print(first_tensor.shape)
@@ -44,7 +44,7 @@ with VibeStreamer(config) as streamer:
 If you need a tensor after the `with` block, clone it while the block is still active:
 
 ```python
-with VibeStreamer(config) as streamer:
+with VajraStreamer(config) as streamer:
     tensors = streamer.load("owner/model")
     copied = next(iter(tensors.values())).clone()
 

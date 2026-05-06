@@ -49,7 +49,7 @@ Depth is not achieved through shadows, but through **Tonal Layering** and **Lumi
 
 ### Cards & Lists
 *   **Structure:** Absolutely no divider lines. Separate list items using 16px of vertical space or a subtle alternating background shift between `surface_container_low` and `surface_container`.
-*   **Glass Cards:** For "Vibe-Streamer" overlays, use 80% opacity `surface_container_highest` with a `backdrop-filter: blur(12px)` to allow the "Metal" background textures to bleed through.
+*   **Glass Cards:** For Vajra overlays, use 80% opacity `surface_container_highest` with a `backdrop-filter: blur(12px)` to allow the "Metal" background textures to bleed through.
 
 ## 6. Do's and Don'ts
 
