@@ -8,7 +8,7 @@ sidebar_label: Configuration
 `StreamConfig` controls authentication, chunking, worker counts, cache behavior, and native logging.
 
 ```python
-from vibe_streamer import StreamConfig
+from vajra import StreamConfig
 
 config = StreamConfig(
     auth_token="",

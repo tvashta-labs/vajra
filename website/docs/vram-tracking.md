@@ -18,16 +18,16 @@ Tracking is enabled by default when the native library is loaded.
 
 ## Log File Location
 
-Set `VIBE_VRAM_LOG` to choose the output path:
+Set `VAJRA_VRAM_LOG` to choose the output path:
 
 ```bash
-VIBE_VRAM_LOG=/tmp/my_run.csv python your_script.py
+VAJRA_VRAM_LOG=/tmp/my_run.csv python your_script.py
 ```
 
-If `VIBE_VRAM_LOG` is not set, the default path is:
+If `VAJRA_VRAM_LOG` is not set, the default path is:
 
 ```text
-/tmp/vibe_vram_allocs.csv
+/tmp/vajra_vram_allocs.csv
 ```
 
 The CSV columns are:
@@ -42,14 +42,14 @@ The CSV columns are:
 
 ## Pause and Resume Tracking
 
-Use the static helpers on `VibeStreamer`:
+Use the static helpers on `VajraStreamer`:
 
 ```python
-from vibe_streamer import VibeStreamer
+from vajra import VajraStreamer
 
-VibeStreamer.pause_vram_tracking()
+VajraStreamer.pause_vram_tracking()
 # Allocations here are not logged.
-VibeStreamer.resume_vram_tracking()
+VajraStreamer.resume_vram_tracking()
 ```
 
 This is useful when you want to exclude known allocations from the log.

@@ -3,13 +3,13 @@ sidebar_position: 2
 sidebar_label: Overview
 ---
 
-# vibe-streamer Python Library
+# Vajra Python Library
 
-`vibe-streamer` streams Hugging Face `.safetensors` model weights directly into GPU memory and returns them as PyTorch tensors.
+`vajra-streamer` streams Hugging Face `.safetensors` model weights directly into GPU memory and returns them as PyTorch tensors.
 
 The tensors are **zero-copy**: zero-copy means PyTorch receives a view of GPU memory already allocated by the native library instead of copying tensor bytes into a new allocation. That matters because model weights are large, and an extra copy can double peak VRAM usage.
 
-The Python package is intentionally small. It is a ctypes binding over `libvibestreamer`, a native D/vibe.d library that owns network I/O, chunked downloading, Hugging Face resolution, and GPU memory management.
+The Python package is intentionally small. It is a ctypes binding over `libvajra`, a native D/vibe.d library that owns network I/O, chunked downloading, Hugging Face resolution, and GPU memory management.
 
 ## What You Can Do
 
@@ -22,26 +22,26 @@ The Python package is intentionally small. It is a ctypes binding over `libvibes
 ## Main API
 
 ```python
-from vibe_streamer import VibeStreamer, StreamConfig
+from vajra import VajraStreamer, StreamConfig
 ```
 
-`StreamConfig` stores load settings. `VibeStreamer` performs the load and owns the native memory lifetime.
+`StreamConfig` stores load settings. `VajraStreamer` performs the load and owns the native memory lifetime.
 
 The normal workflow is:
 
 ```python
-from vibe_streamer import VibeStreamer, StreamConfig
+from vajra import VajraStreamer, StreamConfig
 
 config = StreamConfig()
 
-with VibeStreamer(config) as streamer:
+with VajraStreamer(config) as streamer:
     tensors = streamer.load("owner/model")
     # Use tensors here.
 ```
 
 ## Important Constraints
 
-`VibeStreamer` is a **context manager**: a context manager is an object used with `with ...` so Python reliably runs cleanup when the block exits. Keep tensor use inside the `with` block because the native library frees the backing VRAM when the block exits.
+`VajraStreamer` is a **context manager**: a context manager is an object used with `with ...` so Python reliably runs cleanup when the block exits. Keep tensor use inside the `with` block because the native library frees the backing VRAM when the block exits.
 
 `load()` is designed for Hugging Face model repos. If you pass a full Hugging Face URL, the native resolver extracts the repo id and loads every `.safetensors` file in that repo. It does not stream only the single shard named in the URL.
 

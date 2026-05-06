@@ -5,7 +5,7 @@ sidebar_label: Model Inputs
 
 # Model Inputs
 
-`VibeStreamer.load()` accepts either a Hugging Face repo id or a `huggingface.co` URL.
+`VajraStreamer.load()` accepts either a Hugging Face repo id or a `huggingface.co` URL.
 
 ```python
 # Repo id. This is the clearest form.
@@ -46,7 +46,7 @@ For gated or private repos, pass a Hugging Face token through `StreamConfig.auth
 ```python
 config = StreamConfig(auth_token="hf_...")
 
-with VibeStreamer(config) as streamer:
+with VajraStreamer(config) as streamer:
     tensors = streamer.load("meta-llama/Meta-Llama-3-8B")
 ```
 
