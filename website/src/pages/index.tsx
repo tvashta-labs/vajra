@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <Layout
       title="Vajra"
-      description="Description will go into a meta tag in <head />"
+      description="Vajra Model Streamer"
       noFooter>
       <style>{`
         .navbar { display: none !important; }
