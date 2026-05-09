@@ -15,8 +15,8 @@ function tailwindPlugin(context, options) {
 
 const config: Config = {
   title: 'Vajra',
-  tagline: 'Instant-On AI: VRAM-Direct Model Streaming',
-  favicon: 'img/favicon.ico',
+  tagline: 'State-of-the-Art | Blazingly Fast | Model Streamer',
+  favicon: 'img/favicon.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {

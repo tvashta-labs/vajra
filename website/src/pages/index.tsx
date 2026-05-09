@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <Layout
       title="Vajra"
-      description="Vajra Model Streamer"
+      description="State-of-the-Art | Blazingly Fast | Model Streamer"
       noFooter>
       <style>{`
         .navbar { display: none !important; }
