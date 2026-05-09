@@ -21,7 +21,7 @@ export const Hero: React.FC = () => {
           </div>
         </div>
         {/* Hero Stat Widget */}
-        <div className="w-full md:w-[380px] bg-surface-container-low border-2 border-outline-variant/30 p-8 flex flex-col justify-between relative shadow-2xl">
+        <div className="w-full md:w-[380px] bg-surface-container-low border-2 border-outline-variant/30 p-8 flex flex-col justify-between relative shadow-xl">
           <div className="absolute inset-0 bg-gradient-to-tr from-primary-container/10 to-transparent opacity-50"></div>
           <div className="relative z-10 w-full">
             <h3 className="text-[15px] uppercase tracking-[0.4em] text-on-surface-variant font-bold mb-6">Model Load Time</h3>
@@ -43,7 +43,7 @@ export const Hero: React.FC = () => {
                   <span className="text-white font-black">20.14s</span>
                 </div>
                 <div className="h-6 bg-surface-container-lowest w-full border border-primary-container/30">
-                  <div className="h-full bg-primary-container shadow-[0_0_12px_rgba(0,245,255,0.4)]" style={{ width: '62.86%' }}></div>
+                  <div className="h-full bg-primary-container shadow-[0_0_6px_rgba(0,245,255,0.2)]" style={{ width: '62.86%' }}></div>
                 </div>
               </div>
             </div>

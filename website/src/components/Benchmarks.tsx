@@ -28,8 +28,7 @@ export const Benchmarks: React.FC = () => {
                 {/* Right Side: Context & Legend */}
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
                   {/* Stylish "Lower is better" Chip */}
-                  <div className="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-high border border-outline-variant/30 w-fit">
-                    <div className="w-2 h-2 bg-[#79ff5a] shadow-[0_0_8px_rgba(121,255,90,0.6)] animate-pulse"></div>
+                  <div className="inline-flex items-center px-3 py-2 bg-surface-container-high border border-outline-variant/30 w-fit">
                     <span className="text-base font-mono font-bold uppercase tracking-widest text-[#79ff5a]">
                       Lower is better
                     </span>
@@ -38,7 +37,7 @@ export const Benchmarks: React.FC = () => {
                   {/* Legend */}
                   <div className="flex gap-6">
                     <div className="flex items-center gap-2">
-                      <div className="h-4 w-4 bg-primary-container shadow-[0_0_8px_rgba(0,245,255,0.8)]"></div>
+                      <div className="h-4 w-4 bg-primary-container shadow-[0_0_1px_rgba(0,245,255,0.1)]"></div>
                       <span className="font-mono text-base font-bold uppercase tracking-widest text-white">
                         Vajra
                       </span>
@@ -89,10 +88,10 @@ export const Benchmarks: React.FC = () => {
 
                 {/* Vajra Bar */}
                 <div className="group relative flex h-full w-40 md:w-56 flex-col justify-end">
-                  <div className="relative w-full bg-primary-container shadow-[0_0_20px_rgba(0,245,255,0.4)] transition-all" style={{ height: '57.5%' }}>
+                  <div className="relative w-full bg-primary-container shadow-[0_0_2px_rgba(0,245,255,0.05)] transition-all" style={{ height: '57.5%' }}>
                     <div 
                       className="absolute -top-10 left-1/2 -translate-x-1/2 font-mono text-xl font-black text-primary-container"
-                      style={{ textShadow: '0 0 6px rgba(0, 245, 255, 0.5)' }}
+                      style={{ textShadow: '0 0 3px rgba(0, 245, 255, 0.3)' }}
                     >
                       20.14s
                     </div>
@@ -111,7 +110,7 @@ export const Benchmarks: React.FC = () => {
           </div>
 
           {/* Streaming Timeline Sub-section */}
-          <div className="mt-16 bg-surface-container-low border border-outline-variant/30 p-8 shadow-2xl relative overflow-hidden">
+          <div className="mt-16 bg-surface-container-low border border-outline-variant/30 p-8 shadow-xl relative overflow-hidden">
             <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none"></div>
             <div className="relative z-10">
               <div className="mb-10">
@@ -138,9 +137,12 @@ export const Benchmarks: React.FC = () => {
                     <div className="h-8 bg-surface-container-lowest w-full border border-outline-variant/30 relative mb-2">
                       <div className="h-full bg-outline-variant w-full relative">
                         {/* Indicator */}
-                        <div className="absolute right-0 top-full mt-2 flex flex-col items-end">
-                          <div className="w-px h-6 bg-error"></div>
-                          <span className="text-error text-sm font-mono uppercase tracking-widest font-bold whitespace-nowrap mt-2">
+                        <div
+                          className="absolute top-full right-0 flex flex-col items-end pointer-events-none"
+                          style={{ zIndex: 20 }}
+                        >
+                          <div className="w-px h-6 bg-error shadow-[0_0_2px_rgba(255,180,180,0.15)] translate-x-1/2"></div>
+                          <span className="mt-2 bg-background/90 px-2 py-1 border border-error/30 text-error text-sm font-mono uppercase tracking-widest font-bold whitespace-nowrap">
                             GPU work starts after this
                           </span>
                         </div>
@@ -172,25 +174,26 @@ export const Benchmarks: React.FC = () => {
                           <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,245,255,0.1)_50%,transparent_75%,transparent_100%)] bg-[length:12px_12px]"></div>
                         </div>
                         {/* Phase 2: Concurrent Work (3.20s - 20.14s) */}
-                        <div className="h-full bg-primary-container shadow-[0_0_12px_rgba(0,245,255,0.4)] relative" style={{ width: '52.87%' }}>
+                        <div className="h-full bg-primary-container shadow-[0_0_3px_rgba(0,245,255,0.1)] relative" style={{ width: '52.87%' }}>
                           <div className="absolute inset-0 bg-white/10 animate-pulse"></div>
-                        </div>
-                        {/* Completion Marker */}
-                        <div
-                          className="absolute -top-10 flex flex-col items-center pointer-events-none"
-                          style={{ left: '62.86%', transform: 'translateX(-50%)', zIndex: 20 }}
-                        >
-                          <span className="mb-2 bg-background/90 px-2 py-1 border border-primary-container/30 text-primary-container text-sm font-mono font-black uppercase tracking-widest shadow-[0_0_8px_rgba(0,245,255,0.25)]">
-                            20.14s
-                          </span>
-                          <div className="w-px h-8 bg-primary-container shadow-[0_0_8px_rgba(0,245,255,0.45)]"></div>
+                          
+                          {/* Completion Marker */}
+                          <div
+                            className="absolute -top-10 flex flex-col items-center pointer-events-none"
+                            style={{ right: 0, transform: 'translateX(50%)', zIndex: 20 }}
+                          >
+                            <span className="mb-2 bg-background/90 px-2 py-1 border border-primary-container/30 text-primary-container text-sm font-mono font-black uppercase tracking-widest shadow-[0_0_2px_rgba(0,245,255,0.05)]">
+                              20.14s
+                            </span>
+                            <div className="w-px h-8 bg-primary-container shadow-[0_0_2px_rgba(0,245,255,0.1)]"></div>
+                          </div>
                         </div>
                         {/* Vertical Milestone Marker */}
                         <div
                           className="absolute flex flex-col items-center pointer-events-none"
                           style={{ top: 0, bottom: '-32px', left: '9.99%', transform: 'translateX(-50%)', zIndex: 20 }}
                         >
-                          <div className="w-px h-full bg-primary-container shadow-[0_0_8px_rgba(0,245,255,0.6)]"></div>
+                          <div className="w-px h-full bg-primary-container shadow-[0_0_2px_rgba(0,245,255,0.15)]"></div>
                           <span className="text-primary-container text-sm font-black uppercase tracking-widest mt-1 whitespace-nowrap bg-background/90 px-1 border border-primary-container/20">
                             GPU TRANSFER BEGINS (3.20s)
                           </span>
