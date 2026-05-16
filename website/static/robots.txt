@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vajra.tvashta-labs.in/sitemap.xml

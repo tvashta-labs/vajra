@@ -7,6 +7,9 @@
 # Generated files
 .docusaurus
 .cache-loader
+# Regenerated on every `pnpm build` / `pnpm start` by the Tailwind CLI.
+# See package.json "build" script. Source of truth: src/css/tailwind-input.css.
+/src/css/tailwind-output.css
 
 # Misc
 .DS_Store
