@@ -17,7 +17,6 @@ The Python package is intentionally small. It is a ctypes binding over `libvajra
 - Load a Hugging Face model repo into GPU memory.
 - Use the returned values as CUDA-backed PyTorch tensors.
 - Tune chunking, worker counts, cache behavior, and log verbosity.
-- Pause and resume native VRAM allocation logging.
 
 ## Main API
 

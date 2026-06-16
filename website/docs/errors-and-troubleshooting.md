@@ -52,20 +52,6 @@ Try:
 - Reducing competing GPU workloads.
 - Restarting the Python process if previous CUDA allocations are still held.
 
-## Raw `VajraGPUTensor` Values
-
-If a tensor cannot be converted with `torch.as_tensor(..., device="cuda")`, the returned dictionary can contain a raw `VajraGPUTensor`.
-
-```python
-for name, tensor in tensors.items():
-    if hasattr(tensor, "dtype"):
-        print(name, tensor.dtype)
-    else:
-        print(name, tensor.typestr, tensor.original_dtype)
-```
-
-This usually points to a dtype conversion issue or a PyTorch/CUDA compatibility issue.
-
 ## Process Exit Looks Abrupt
 
 Importing `vajra` registers `os._exit(0)` as an `atexit` handler. This bypasses normal Python shutdown to avoid a native D runtime shutdown segfault.

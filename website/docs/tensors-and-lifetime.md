@@ -63,17 +63,3 @@ bf16_tensor = i16_tensor.view(torch.bfloat16)
 ```
 
 This is still zero-copy. The important detail is that BF16 takes a special path compared with ordinary float or integer tensors.
-
-## Raw `VajraGPUTensor` Fallback
-
-If PyTorch conversion fails for a tensor, the dictionary may contain a raw `VajraGPUTensor` instead of a `torch.Tensor`.
-
-```python
-for name, tensor in tensors.items():
-    if hasattr(tensor, "dtype"):
-        print(name, tensor.dtype, tensor.device)
-    else:
-        print(name, tensor.typestr, tensor.original_dtype)
-```
-
-`VajraGPUTensor` is not intended as the main public API. Treat it as a signal that dtype conversion failed and check your PyTorch/CUDA setup.
