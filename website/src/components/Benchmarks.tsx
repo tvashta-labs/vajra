@@ -11,30 +11,26 @@ export const Benchmarks: React.FC = () => {
           </p>
         </div>
         <div className="grid grid-cols-1 gap-12">
-          {/* Graph Container */}
+          {/* Hugging Face Hub Comparison Sub-section */}
           <div className="bg-surface-container-low border border-outline-variant/30 p-8 relative overflow-hidden">
             <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none"></div>
             <div className="relative z-10">
-              {/* Graph Header & Legend */}
-              <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+              {/* Header & Legend */}
+              <div className="mb-12 flex flex-col gap-6">
                 <div>
-                  <h3 className="mb-2 font-mono text-sm font-bold uppercase tracking-widest text-on-surface-variant">
-                    Transfer Metric
+                  <h3 className="mb-2 font-mono text-lg font-bold uppercase tracking-widest text-on-surface-variant">
+                    Hugging Face Hub
                   </h3>
-                  <p className="text-3xl md:text-4xl font-black tracking-tight text-white uppercase">
-                    Total Weight Transfer Time
+                  <p className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-white uppercase">
+                    Vajra vs Hugging Face Model Loader
                   </p>
                 </div>
-                {/* Right Side: Context & Legend */}
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
-                  {/* Stylish "Lower is better" Chip */}
-                  <div className="inline-flex items-center px-3 py-2 bg-surface-container-high border border-outline-variant/30 w-fit">
-                    <span className="text-base font-mono font-bold uppercase tracking-widest text-[#79ff5a]">
+                  <div className="inline-flex shrink-0 items-center px-3 py-2 bg-surface-container-high border border-outline-variant/30 w-fit">
+                    <span className="text-base font-mono font-bold uppercase tracking-widest text-[#79ff5a] whitespace-nowrap">
                       Lower is better
                     </span>
                   </div>
-
-                  {/* Legend */}
                   <div className="flex gap-6">
                     <div className="flex items-center gap-2">
                       <div className="h-4 w-4 bg-primary-container shadow-[0_0_1px_rgba(0,245,255,0.1)]"></div>
@@ -43,7 +39,7 @@ export const Benchmarks: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="h-4 w-4 bg-outline-variant"></div>
+                      <div className="h-4 w-4 bg-amber shadow-[0_0_1px_rgba(255,183,77,0.1)]"></div>
                       <span className="font-mono text-base font-bold uppercase tracking-widest text-white">
                         hf_transfer
                       </span>
@@ -52,161 +48,148 @@ export const Benchmarks: React.FC = () => {
                 </div>
               </div>
 
-              {/* Cyberpunk Graph Layout */}
-              <div className="relative flex h-80 justify-evenly items-end border-b-2 border-l-2 border-outline-variant/30 mt-12 mb-20 ml-10 md:ml-12">
-                
-                {/* Y-axis labels */}
-                <div className="absolute -left-12 bottom-0 top-0 w-12 font-mono text-sm font-bold text-on-surface-variant">
-                  <span className="absolute right-0 top-0 -translate-y-1/2">
-                    35s
-                  </span>
-                  <span className="absolute right-0 top-[28.5%] -translate-y-1/2">
-                    25s
-                  </span>
-                  <span className="absolute right-0 top-[57%] -translate-y-1/2">
-                    15s
-                  </span>
-                  <span className="absolute right-0 top-[85.7%] -translate-y-1/2">
-                    5s
-                  </span>
-                  <span className="absolute bottom-0 right-0 translate-y-1/2">
-                    0s
-                  </span>
-                </div>
-
-                {/* hf_transfer bar */}
-                <div className="group relative flex h-full w-40 md:w-56 flex-col justify-end">
-                  <div className="relative w-full bg-outline-variant transition-all group-hover:brightness-125" style={{ height: '91.5%' }}>
-                    <div className="absolute -top-10 left-1/2 -translate-x-1/2 font-mono text-xl font-bold text-on-surface-variant">
-                      32.04s
-                    </div>
-                  </div>
-                  <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full text-center font-mono text-sm md:text-base font-bold uppercase tracking-[0.1em] text-on-surface-variant whitespace-nowrap">
-                    hf_transfer
-                  </div>
-                </div>
-
-                {/* Vajra Bar */}
-                <div className="group relative flex h-full w-40 md:w-56 flex-col justify-end">
-                  <div className="relative w-full bg-primary-container shadow-[0_0_2px_rgba(0,245,255,0.05)] transition-all" style={{ height: '57.5%' }}>
-                    <div 
-                      className="absolute -top-10 left-1/2 -translate-x-1/2 font-mono text-xl font-black text-primary-container"
-                      style={{ textShadow: '0 0 3px rgba(0, 245, 255, 0.3)' }}
-                    >
-                      20.14s
-                    </div>
-                    <div className="absolute inset-0 animate-pulse bg-white/20"></div>
-                  </div>
-                  <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full text-center font-mono text-sm md:text-base font-black uppercase tracking-[0.1em] text-primary-container whitespace-nowrap">
-                    Vajra
-                  </div>
-                </div>
-
+              {/* Y-axis label */}
+              <div className="mb-6 font-mono text-lg font-bold uppercase tracking-widest text-on-surface-variant">
+                Time (Seconds)
               </div>
-              <p className="mt-8 pt-6 border-t border-outline-variant/40 text-sm font-mono text-on-surface-variant leading-relaxed">
-                Vajra moved 14.96GB of Llama 3 8B .safetensors weights through the streaming pipeline 59% faster in this run.<br /><br />
-                Comparison used <a href="https://github.com/huggingface/hf_transfer" target="_blank" rel="noopener noreferrer" className="text-primary-container hover:underline">hf_transfer</a> — HuggingFace&apos;s Rust-backed downloader (HF_HUB_ENABLE_HF_TRANSFER=1).              </p>
+
+              {/* Horizontal Bars */}
+              <div className="space-y-8">
+                {/* Vajra Bar */}
+                <div className="relative pb-12">
+                  <div className="relative text-base font-mono mb-2">
+                    <span className="text-primary-container font-black uppercase tracking-widest">
+                      Vajra
+                    </span>
+                    <span className="absolute top-0 text-white font-black whitespace-nowrap" style={{ right: '37.14%' }}>
+                      20.14s
+                    </span>
+                  </div>
+                  <div className="relative h-10 bg-surface-container-lowest w-full border border-primary-container/30">
+                    <div className="h-full bg-primary-container shadow-[0_0_6px_rgba(0,245,255,0.2)] relative" style={{ width: '62.86%' }}>
+                      <div className="absolute inset-0 bg-white/10 animate-pulse"></div>
+                    </div>
+                    {/* GPU transfer begins marker: glowing callout below the bar */}
+                    <div className="absolute top-full z-20 flex flex-col items-start pointer-events-none" style={{ left: '9.99%' }}>
+                      <div className="h-3 w-px bg-primary-container shadow-[0_0_6px_rgba(0,245,255,0.6)]"></div>
+                      <span className="mt-1.5 bg-background/95 px-2.5 py-1 border border-primary-container/40 text-primary-container text-sm font-mono font-black uppercase tracking-widest whitespace-nowrap shadow-[0_0_8px_rgba(0,245,255,0.08)]">
+                        GPU transfer begins (3.20s)
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                {/* hf_transfer Bar */}
+                <div>
+                  <div className="relative text-base font-mono mb-2">
+                    <span className="text-on-surface-variant font-bold uppercase tracking-widest">
+                      hf_transfer
+                    </span>
+                    <span className="absolute top-0 right-0 text-on-surface-variant font-bold whitespace-nowrap">
+                      32.04s
+                    </span>
+                  </div>
+                  <div className="h-10 bg-surface-container-lowest w-full border border-amber/30">
+                    <div className="h-full bg-amber shadow-[0_0_6px_rgba(255,183,77,0.2)]" style={{ width: '100%' }}></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer: source note + performance delta */}
+              <div className="mt-10 pt-6 border-t border-outline-variant/40 flex flex-col md:flex-row md:items-baseline justify-between gap-4">
+                <p className="text-lg font-mono text-on-surface-variant leading-relaxed">
+                  Both load 14.96 GB of Llama 3 8B .safetensors from the Hugging Face Hub. Vajra begins GPU transfer at 3.20s, before the download finishes, while <a href="https://github.com/huggingface/hf_transfer" target="_blank" rel="noopener noreferrer" className="text-primary-container hover:underline">hf_transfer</a> must complete the full download first.
+                </p>
+                <span className="text-secondary-fixed font-black text-2xl whitespace-nowrap">
+                  59% Faster
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Streaming Timeline Sub-section */}
-          <div className="mt-16 bg-surface-container-low border border-outline-variant/30 p-8 shadow-xl relative overflow-hidden">
-            <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none"></div>
+          {/* S3 Source Comparison Sub-section */}
+          <div className="mt-16 bg-surface-container-low border border-outline-variant/30 p-8 relative overflow-hidden">
+            <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none"></div>
             <div className="relative z-10">
-              <div className="mb-10">
-                <h3 className="text-sm font-mono uppercase tracking-widest text-primary-container mb-2 font-bold">
-                  Streaming Timeline
-                </h3>
-                <h4 className="text-2xl md:text-3xl font-black text-white mb-3 uppercase tracking-tight">
-                  GPU transfer starts before the download finishes
-                </h4>
-              </div>
-              <div className="space-y-12">
-                {/* Traditional Loading Path */}
+              {/* Header & Legend */}
+              <div className="mb-12 flex flex-col gap-6">
                 <div>
-                  <div className="mb-4">
-                    <span className="text-on-surface-variant font-mono text-base font-bold uppercase tracking-widest">
-                      Traditional Loading Path
-                    </span>
-                  </div>
-                  <div className="relative">
-                    <div className="flex justify-between text-base font-mono mb-2">
-                      <span className="text-on-surface-variant font-medium">Download full model with hf_transfer</span>
-                      <span className="text-on-surface-variant font-bold">32.04s</span>
-                    </div>
-                    <div className="h-8 bg-surface-container-lowest w-full border border-outline-variant/30 relative mb-2">
-                      <div className="h-full bg-outline-variant w-full relative">
-                        {/* Indicator */}
-                        <div
-                          className="absolute top-full right-0 flex flex-col items-end pointer-events-none"
-                          style={{ zIndex: 20 }}
-                        >
-                          <div className="w-px h-6 bg-error shadow-[0_0_2px_rgba(255,180,180,0.15)] translate-x-1/2"></div>
-                          <span className="mt-2 bg-background/90 px-2 py-1 border border-error/30 text-error text-sm font-mono uppercase tracking-widest font-bold whitespace-nowrap">
-                            GPU work starts after this
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <h3 className="mb-2 font-mono text-lg font-bold uppercase tracking-widest text-on-surface-variant">
+                    S3 Source
+                  </h3>
+                  <p className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-white uppercase">
+                    Vajra vs Run:ai Model Streamer
+                  </p>
                 </div>
-                {/* Vajra Architecture */}
-                <div className="pt-8 border-t border-outline-variant/30">
-                  <div className="mb-2">
-                    <span className="text-primary-container font-mono text-base font-black uppercase tracking-widest">
-                      Vajra Architecture
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
+                  <div className="inline-flex shrink-0 items-center px-3 py-2 bg-surface-container-high border border-outline-variant/30 w-fit">
+                    <span className="text-base font-mono font-bold uppercase tracking-widest text-[#79ff5a] whitespace-nowrap">
+                      Lower is better
                     </span>
                   </div>
-                  <div className="space-y-2">
-                    {/* Consolidated Master Bar Container */}
-                    <div className="relative pt-4 pb-8">
-                      {/* Labels Row */}
-                      <div className="flex items-start text-base font-mono mb-8">
-                        <div className="flex flex-col">
-                          <span className="text-white font-bold uppercase tracking-widest">Parallel Download &amp; Transfer</span>
-                          <span className="text-on-surface-variant text-sm">Continuous Streaming Pipeline</span>
-                        </div>
-                      </div>
-                      {/* The Master Bar */}
-                      <div className="h-12 bg-surface-container-lowest w-full border border-outline-variant/30 relative flex">
-                        {/* Phase 1: Download Only (0s - 3.20s) */}
-                        <div className="h-full bg-surface-container-high border-r border-primary-container/30 relative overflow-hidden" style={{ width: '9.99%' }}>
-                          <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,245,255,0.1)_50%,transparent_75%,transparent_100%)] bg-[length:12px_12px]"></div>
-                        </div>
-                        {/* Phase 2: Concurrent Work (3.20s - 20.14s) */}
-                        <div className="h-full bg-primary-container shadow-[0_0_3px_rgba(0,245,255,0.1)] relative" style={{ width: '52.87%' }}>
-                          <div className="absolute inset-0 bg-white/10 animate-pulse"></div>
-                          
-                          {/* Completion Marker */}
-                          <div
-                            className="absolute -top-10 flex flex-col items-center pointer-events-none"
-                            style={{ right: 0, transform: 'translateX(50%)', zIndex: 20 }}
-                          >
-                            <span className="mb-2 bg-background/90 px-2 py-1 border border-primary-container/30 text-primary-container text-sm font-mono font-black uppercase tracking-widest shadow-[0_0_2px_rgba(0,245,255,0.05)]">
-                              20.14s
-                            </span>
-                            <div className="w-px h-8 bg-primary-container shadow-[0_0_2px_rgba(0,245,255,0.1)]"></div>
-                          </div>
-                        </div>
-                        {/* Vertical Milestone Marker */}
-                        <div
-                          className="absolute flex flex-col items-center pointer-events-none"
-                          style={{ top: 0, bottom: '-32px', left: '9.99%', transform: 'translateX(-50%)', zIndex: 20 }}
-                        >
-                          <div className="w-px h-full bg-primary-container shadow-[0_0_2px_rgba(0,245,255,0.15)]"></div>
-                          <span className="text-primary-container text-sm font-black uppercase tracking-widest mt-1 whitespace-nowrap bg-background/90 px-1 border border-primary-container/20">
-                            GPU TRANSFER BEGINS (3.20s)
-                          </span>
-                        </div>
-                      </div>
+                  <div className="flex gap-6">
+                    <div className="flex items-center gap-2">
+                      <div className="h-4 w-4 bg-primary-container shadow-[0_0_1px_rgba(0,245,255,0.1)]"></div>
+                      <span className="font-mono text-base font-bold uppercase tracking-widest text-white">
+                        Vajra
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="h-4 w-4 bg-amber shadow-[0_0_1px_rgba(255,183,77,0.1)]"></div>
+                      <span className="font-mono text-base font-bold uppercase tracking-widest text-white">
+                        Run:ai Model Streamer
+                      </span>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="mt-16 pt-6 border-t border-outline-variant/30">
-                <p className="text-sm font-mono text-on-surface-variant leading-relaxed">
-                  In this benchmark, Vajra started GPU transfer at 3.20s, while the 14.96GB download/RAM staging path completed in 20.14s. The <a href="https://github.com/huggingface/hf_transfer" target="_blank" rel="noopener noreferrer" className="text-primary-container hover:underline">hf_transfer</a> download completed in 32.04s.
+
+              {/* Y-axis label */}
+              <div className="mb-6 font-mono text-lg font-bold uppercase tracking-widest text-on-surface-variant">
+                Time (Seconds)
+              </div>
+
+              {/* Horizontal Bars */}
+              <div className="space-y-8">
+                {/* Vajra Bar */}
+                <div>
+                  <div className="relative text-base font-mono mb-2">
+                    <span className="text-primary-container font-black uppercase tracking-widest">
+                      Vajra
+                    </span>
+                    <span className="absolute top-0 text-white font-black whitespace-nowrap" style={{ right: '11.1%' }}>
+                      13.973s
+                    </span>
+                  </div>
+                  <div className="h-10 bg-surface-container-lowest w-full border border-primary-container/30">
+                    <div className="h-full bg-primary-container shadow-[0_0_6px_rgba(0,245,255,0.2)] relative" style={{ width: '88.9%' }}>
+                      <div className="absolute inset-0 bg-white/10 animate-pulse"></div>
+                    </div>
+                  </div>
+                </div>
+                {/* Run:ai Model Streamer Bar */}
+                <div>
+                  <div className="relative text-base font-mono mb-2">
+                    <span className="text-on-surface-variant font-bold uppercase tracking-widest">
+                      Run:ai Model Streamer
+                    </span>
+                    <span className="absolute top-0 right-0 text-on-surface-variant font-bold whitespace-nowrap">
+                      15.725s
+                    </span>
+                  </div>
+                  <div className="h-10 bg-surface-container-lowest w-full border border-amber/30">
+                    <div className="h-full bg-amber shadow-[0_0_6px_rgba(255,183,77,0.2)]" style={{ width: '100%' }}></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer: S3 source note + performance delta */}
+              <div className="mt-10 pt-6 border-t border-outline-variant/40 flex flex-col md:flex-row md:items-baseline justify-between gap-4">
+                <p className="text-lg font-mono text-on-surface-variant leading-relaxed">
+                  Both Vajra and Run:ai Model Streamer are using S3 as the source.
                 </p>
+                <span className="text-secondary-fixed font-black text-2xl whitespace-nowrap">
+                  12.5% Faster
+                </span>
               </div>
             </div>
           </div>

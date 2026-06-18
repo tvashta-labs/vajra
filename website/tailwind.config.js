@@ -12,6 +12,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        "amber": "#ffb74d",
         "tertiary-container": "#00fbbf",
         "inverse-on-surface": "#2d3137",
         "secondary-container": "#32ff00",
