@@ -26,36 +26,46 @@ export const Hero: React.FC = () => {
           <div className="relative z-10 w-full">
             <h3 className="text-[15px] uppercase tracking-[0.4em] text-on-surface-variant font-bold mb-6">Model Load Time</h3>
             <div className="space-y-6">
-              {/* HF Rust Bar */}
-              <div>
-                <div className="flex justify-between text-s font-mono mb-2">
-                  <span className="text-on-surface-variant font-bold uppercase">Hugging face Rust Loader</span>
-                  <span className="text-on-surface-variant font-bold">32.04s</span>
-                </div>
-                <div className="h-6 bg-surface-container-lowest w-full border border-outline-variant/30">
-                  <div className="h-full bg-outline-variant" style={{ width: '100%' }}></div>
-                </div>
-              </div>
               {/* Vajra Bar */}
               <div>
                 <div className="flex justify-between text-s font-mono mb-2">
                   <span className="text-primary-container font-black uppercase">Vajra</span>
-                  <span className="text-white font-black">20.14s</span>
+                  <span className="text-white font-black">8.22s</span>
                 </div>
                 <div className="h-6 bg-surface-container-lowest w-full border border-primary-container/30">
-                  <div className="h-full bg-primary-container shadow-[0_0_6px_rgba(0,245,255,0.2)]" style={{ width: '62.86%' }}></div>
+                  <div className="h-full bg-primary-container shadow-[0_0_6px_rgba(0,245,255,0.2)]" style={{ width: '22.29%' }}></div>
+                </div>
+              </div>
+              {/* hf_transfer Bar */}
+              <div>
+                <div className="flex justify-between text-s font-mono mb-2">
+                  <span className="text-on-surface-variant font-bold uppercase">hf_transfer</span>
+                  <span className="text-on-surface-variant font-bold">36.88s</span>
+                </div>
+                <div className="h-6 bg-surface-container-lowest w-full border border-amber/30">
+                  <div className="h-full bg-amber shadow-[0_0_6px_rgba(255,183,77,0.2)]" style={{ width: '100%' }}></div>
+                </div>
+              </div>
+              {/* Run:ai Bar */}
+              <div>
+                <div className="flex justify-between text-s font-mono mb-2">
+                  <span className="text-on-surface-variant font-bold uppercase tracking-widest">Run:ai</span>
+                  <span className="text-on-surface-variant font-bold">15.85s</span>
+                </div>
+                <div className="h-6 bg-surface-container-lowest w-full border border-white/20">
+                  <div className="h-full shadow-[0_0_8px_rgba(255,255,255,0.4)]" style={{ width: '42.98%', backgroundColor: '#ffffff' }}></div>
                 </div>
               </div>
             </div>
             <div className="mt-8 pt-4 border-t border-outline-variant/40 flex justify-between items-center">
               <span className="text-lg font-mono text-on-surface-variant uppercase tracking-widest font-bold">Performance Delta</span>
-              <span className="text-secondary-fixed font-black text-lg">59% Faster</span>
+              <span className="text-green-400 font-black text-lg">4.5x Faster</span>
             </div>
             <p className="mt-4 text-[10.1px] font-mono text-on-surface-variant/60 uppercase tracking-wider leading-relaxed">
               Measured from request start to model weights staged in memory on the same model, machine, and network.
             </p>
             <p className="mt-2 text-l font-mono text-primary-container uppercase tracking-wider leading-relaxed font-bold">
-              GPU loading began at 3.20s
+              GPU loading began at 0.65s
             </p>
 
           </div>

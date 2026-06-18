@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "tailwindcss -i ./src/css/tailwind-input.css -o ./src/css/tailwind-output.css --watch & docusaurus start",
+    "start": "tailwindcss -i ./src/css/tailwind-input.css -o ./src/css/tailwind-output.css && (tailwindcss -i ./src/css/tailwind-input.css -o ./src/css/tailwind-output.css --watch & docusaurus start)",
     "build": "tailwindcss -i ./src/css/tailwind-input.css -o ./src/css/tailwind-output.css && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
