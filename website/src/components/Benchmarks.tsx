@@ -1,6 +1,6 @@
 export const Benchmarks: React.FC = () => {
   return (
-    <section className="py-24 px-8 md:px-24 bg-[#05070a] border-b border-outline-variant/30">
+    <section id="benchmarks" className="scroll-mt-16 py-24 px-8 md:px-24 bg-[#05070a] border-b border-outline-variant/30">
       <div className="max-w-7xl mx-auto">
         <div className="mb-16">
           <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4 uppercase text-white">
