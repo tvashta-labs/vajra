@@ -52,14 +52,3 @@ with VajraStreamer(config) as streamer:
 
 # `copied` owns separate memory now.
 ```
-
-## BF16 Tensors
-
-`bfloat16` is not represented by the standard CUDA array interface type strings. The library handles BF16 by first treating the memory as `int16`, then viewing it as `torch.bfloat16`:
-
-```python
-i16_tensor = torch.as_tensor(vajra_tensor, device="cuda")
-bf16_tensor = i16_tensor.view(torch.bfloat16)
-```
-
-This is still zero-copy. The important detail is that BF16 takes a special path compared with ordinary float or integer tensors.

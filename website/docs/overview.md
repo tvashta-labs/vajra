@@ -9,7 +9,7 @@ sidebar_label: Overview
 
 The tensors are **zero-copy**: zero-copy means PyTorch receives a view of GPU memory already allocated by the native library instead of copying tensor bytes into a new allocation. That matters because model weights are large, and an extra copy can double peak VRAM usage.
 
-The Python package is intentionally small. It is a ctypes binding over `libvajra`, a native D/vibe.d library that owns network I/O, chunked downloading, Hugging Face resolution, and GPU memory management.
+The Python package is intentionally small. It is a binding over `libvajra`, a native library that owns network I/O, chunked downloading, Hugging Face resolution, and GPU memory management.
 
 ## What You Can Do
 

@@ -54,6 +54,6 @@ Try:
 
 ## Process Exit Looks Abrupt
 
-Importing `vajra` registers `os._exit(0)` as an `atexit` handler. This bypasses normal Python shutdown to avoid a native D runtime shutdown segfault.
+Importing `vajra` registers `os._exit(0)` as an `atexit` handler. This bypasses normal Python shutdown to avoid a native library shutdown segfault.
 
 The practical consequence: shutdown callbacks, some `atexit` handlers, and cleanup code after the interpreter begins exiting may not run normally. Put important cleanup before the end of the script, not in process-shutdown hooks.

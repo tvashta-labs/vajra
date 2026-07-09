@@ -10,20 +10,20 @@ import { Footer } from '@site/src/components/Footer';
 export default function Home() {
   return (
     <Layout
-      title="Vajra"
-      description="State-of-the-Art | Blazingly Fast | Model Streamer"
+      title="High-Performance Model Streamer"
+      description="Load models faster by overlapping download, RAM staging, and CUDA transfer."
       noFooter>
       <style>{`
         .navbar { display: none !important; }
       `}</style>
       <div className="vajra-landing">
         <Navbar />
-        <main className="min-h-screen pt-16">
+        <main>
           <Hero />
           <Installation />
           <Benchmarks />
+          <CTA />
         </main>
-        <CTA />
         <Footer />
       </div>
     </Layout>

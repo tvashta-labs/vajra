@@ -1,205 +1,502 @@
 @import './tailwind-output.css';
-@import '@fontsource-variable/inter';
-@import '@fontsource-variable/space-grotesk';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-sans/700.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
 
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
+html {
+  scroll-behavior: smooth;
+}
 
-/* You can override the default Infima variables here. */
-:root {
-  /* Kinetic Industrialism Theme */
-  --ifm-color-primary: #00f5ff; /* primary_container */
-  --ifm-color-primary-dark: #00dce5; /* surface_tint */
-  --ifm-color-primary-darker: #00c3cc;
-  --ifm-color-primary-darkest: #00a1a8;
-  --ifm-color-primary-light: #33f7ff;
-  --ifm-color-primary-lighter: #4df8ff;
-  --ifm-color-primary-lightest: #80fbff;
+/* ---------- Design tokens (from new HTML site) ---------- */
+:root,
+[data-theme='light'] {
+  --paper: #f7f7f3;
+  --paper-2: #efefea;
+  --surface: #ffffff;
+  --ink: #000000;
+  --ink-soft: #000000;
+  --muted: #000000;
+  --line: #e5e7eb;
+  --accent: #2563eb;
+  --accent-2: #60a5fa;
+  --accent-soft: #e6eeff;
+  --accent-border: #bcd3ff;
+  --sage: #047857;
+  --sage-soft: #d6f1e5;
+  --taupe: #fbc77d;
+  --taupe-2: #f0a94a;
+  --radius: 26px;
+  --radius-sm: 16px;
+  --radius-pill: 999px;
+  --shadow: 0 1px 2px rgba(25, 23, 19, 0.04), 0 18px 40px -20px rgba(25, 23, 19, 0.18);
+  --shadow-lg: 0 2px 4px rgba(25, 23, 19, 0.05), 0 40px 80px -30px rgba(25, 23, 19, 0.28);
+  --glow-a: rgba(37, 99, 235, 0.12);
+  --glow-b: rgba(96, 165, 250, 0.09);
+  --grain-opacity: 0.03;
 
-  --ifm-color-secondary: #79ff5a; /* neon lime */
+  /* Infima — light */
+  --ifm-color-primary: #2563eb;
+  --ifm-color-primary-dark: #1d4ed8;
+  --ifm-color-primary-darker: #1e40af;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
+  --ifm-color-secondary: #047857;
 
-  /* Typography: Precision Editorial */
-  --ifm-font-family-base: 'Inter Variable', sans-serif;
-  --ifm-heading-font-family: 'Space Grotesk Variable', sans-serif;
-  --ifm-heading-font-weight: 700;
-  --ifm-heading-letter-spacing: -0.02em;
+  --ifm-font-family-base: 'IBM Plex Sans', system-ui, sans-serif;
+  --ifm-heading-font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  --ifm-font-family-monospace: 'IBM Plex Mono', ui-monospace, monospace;
+  --ifm-heading-font-weight: 600;
+  --ifm-heading-letter-spacing: -0.025em;
 
-  /* 0px Rigidity */
-  --ifm-global-radius: 0px;
-  --ifm-button-border-radius: 0px;
-  --ifm-card-border-radius: 0px;
-  --ifm-pre-border-radius: 0px;
-  --ifm-alert-border-radius: 0px;
-  --ifm-pagination-nav-border-radius: 0px;
-  --ifm-toc-border-radius: 0px;
-  --ifm-dropdown-border-radius: 0px;
+  --ifm-global-radius: 16px;
+  --ifm-button-border-radius: 999px;
+  --ifm-card-border-radius: 26px;
+  --ifm-pre-border-radius: 16px;
+  --ifm-alert-border-radius: 16px;
+  --ifm-pagination-nav-border-radius: 16px;
+  --ifm-toc-border-radius: 16px;
+  --ifm-dropdown-border-radius: 16px;
 
-  /* Shadows - remove them, use glows for active states */
-  --ifm-global-shadow-lw: none;
-  --ifm-global-shadow-md: none;
-  --ifm-global-shadow-tl: none;
+  --ifm-background-color: var(--paper);
+  --ifm-background-surface-color: var(--surface);
+  --ifm-color-content: var(--ink);
+  --ifm-color-content-secondary: #4b5563;
+  --ifm-toc-border-color: var(--line);
+  --ifm-color-emphasis-200: var(--line);
+  --ifm-color-emphasis-300: #d1d5db;
+
+  --ifm-navbar-background-color: rgba(255, 255, 255, 0.85);
+  --ifm-navbar-shadow: var(--shadow);
+  --ifm-footer-background-color: var(--paper);
+  --ifm-footer-color: var(--muted);
+  --ifm-footer-link-color: var(--ink-soft);
+  --ifm-footer-title-color: var(--ink);
 
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 245, 255, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(37, 99, 235, 0.08);
+  --prism-background-color: #070709;
+
+  --ifm-menu-color-active: var(--accent);
+  --ifm-menu-color-background-active: var(--accent-soft);
+  --ifm-menu-color-background-hover: rgba(37, 99, 235, 0.06);
 }
 
-/* Force dark mode colors for the entire site */
-[data-theme='dark'],
-[data-theme='light'] {
-  --ifm-background-color: #10141a; /* Base background */
-  --ifm-background-surface-color: #161b22; /* surface_container_low */
-  --ifm-color-content: #e9feff; /* primary for text */
-  --ifm-color-content-secondary: #a0b0b0;
+[data-theme='dark'] {
+  --paper: #080a0f;
+  --paper-2: #1b1f2b;
+  --surface: #141824;
+  --ink: #f3f5fa;
+  --ink-soft: #bac2d1;
+  --muted: #8a93a5;
+  --line: #2b313f;
+  --accent: #5a94f8;
+  --accent-2: #8db8ff;
+  --accent-soft: #16233b;
+  --accent-border: #2c4468;
+  --sage: #3ddc97;
+  --sage-soft: #102a20;
+  --taupe: #f59e0b;
+  --taupe-2: #fbbf24;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 18px 40px -20px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.4), 0 40px 80px -30px rgba(0, 0, 0, 0.75);
+  --glow-a: rgba(90, 148, 248, 0.16);
+  --glow-b: rgba(141, 184, 255, 0.1);
+  --grain-opacity: 0.05;
 
-  /* The "No-Line" Rule & Ghost Border Fallback */
-  --ifm-toc-border-color: rgba(58, 73, 74, 0.2); /* outline_variant at 20% */
-  --ifm-color-emphasis-200: rgba(58, 73, 74, 0.2);
-  --ifm-color-emphasis-300: rgba(58, 73, 74, 0.3);
+  --ifm-color-primary: #5a94f8;
+  --ifm-color-primary-dark: #3b82f6;
+  --ifm-color-primary-darker: #2563eb;
+  --ifm-color-primary-darkest: #1d4ed8;
+  --ifm-color-primary-light: #8db8ff;
+  --ifm-color-primary-lighter: #a5c8ff;
+  --ifm-color-primary-lightest: #c7dbff;
+  --ifm-color-secondary: #3ddc97;
 
-  /* Navbar */
-  --ifm-navbar-background-color: rgba(16, 20, 26, 0.9); /* background with blur */
-  --ifm-navbar-shadow: none;
+  --ifm-background-color: var(--paper);
+  --ifm-background-surface-color: var(--surface);
+  --ifm-color-content: var(--ink);
+  --ifm-color-content-secondary: var(--ink-soft);
+  --ifm-toc-border-color: var(--line);
+  --ifm-color-emphasis-200: var(--line);
+  --ifm-color-emphasis-300: #3a4152;
 
-  /* Footer */
-  --ifm-footer-background-color: #161b22;
-  --ifm-footer-color: var(--ifm-color-content-secondary);
-  --ifm-footer-link-color: var(--ifm-color-content);
-  --ifm-footer-title-color: var(--ifm-color-primary);
+  --ifm-navbar-background-color: rgba(18, 20, 27, 0.85);
+  --ifm-navbar-shadow: var(--shadow);
+  --ifm-footer-background-color: var(--paper);
+  --ifm-footer-color: var(--muted);
+  --ifm-footer-link-color: var(--ink-soft);
+  --ifm-footer-title-color: var(--ink);
 
-  /* Code Blocks */
-  --prism-background-color: #161b22;
+  --docusaurus-highlighted-code-line-bg: rgba(90, 148, 248, 0.12);
+  --prism-background-color: #0e1119;
 
-  /* Menu */
-  --ifm-menu-color-active: var(--ifm-color-primary);
-  --ifm-menu-color-background-active: rgba(0, 245, 255, 0.1);
-  --ifm-menu-color-background-hover: rgba(0, 245, 255, 0.05);
+  --ifm-menu-color-active: var(--accent);
+  --ifm-menu-color-background-active: var(--accent-soft);
+  --ifm-menu-color-background-hover: rgba(90, 148, 248, 0.08);
 }
 
-/* Global Grid Texture */
+/* Atmosphere: glow + grain */
 body {
-  background-image:
-    linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px) !important;
-  background-size: 24px 24px !important;
-  background-attachment: fixed !important;
+  background-color: var(--paper) !important;
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
 }
 
-/* Glass & Gradient Rule for Navbar */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 80% -5%, var(--glow-a), transparent 60%),
+    radial-gradient(50% 45% at 5% 0%, var(--glow-b), transparent 55%);
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+#__docusaurus {
+  position: relative;
+  z-index: 1;
+}
+
+/* Docs / blog chrome */
 .navbar {
-  background-color: rgba(16, 20, 26, 0.9) !important; /* background with 90% opacity */
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(58, 73, 74, 0.3) !important; /* Ghost Border */
-  box-shadow: none !important;
+  background-color: var(--ifm-navbar-background-color) !important;
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line) !important;
+  box-shadow: var(--shadow) !important;
 }
 
 .navbar__title {
-  font-family: 'Space Grotesk Variable', sans-serif;
-  text-transform: uppercase;
-  color: var(--ifm-color-primary) !important;
-  letter-spacing: -0.02em;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-weight: 600;
+  color: var(--ink) !important;
+  letter-spacing: -0.01em;
 }
 
-.navbar__item {
-  font-family: 'Space Grotesk Variable', sans-serif;
-  letter-spacing: -0.02em;
+.navbar__link {
+  font-weight: 500;
+  color: var(--ink-soft) !important;
 }
 
-/* Sidebar */
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--accent) !important;
+}
+
+/* Match homepage GitHub link: octocat + label */
+.navbar-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.navbar-github svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+
+/* Space between GitHub and the color-mode toggle */
+.navbar__items--right > .navbar__item {
+  margin-right: 0.85rem;
+}
+
 .theme-doc-sidebar-container {
-  border-right: none !important;
-  background-color: var(--ifm-background-surface-color) !important;
-}
-
-/* Buttons */
-.button--primary {
-  background-color: var(--ifm-color-primary) !important;
-  color: #10141a !important; /* on_primary_container */
-  border: none !important;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
-}
-.button--primary:hover {
-  background-color: #00dce5 !important; /* primary_fixed */
-  box-shadow: 0 0 6px rgba(0, 220, 229, 0.1) !important; /* Ambient Glow */
-}
-.button--secondary {
+  border-right: 1px solid var(--line) !important;
   background-color: transparent !important;
-  color: var(--ifm-color-content) !important;
-  border: 1px solid rgba(58, 73, 74, 0.2) !important; /* Ghost Border */
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
-}
-.button--secondary:hover {
-  border-color: var(--ifm-color-secondary) !important;
-  box-shadow: 0 0 2px var(--ifm-color-secondary) !important;
 }
 
-/* Interactive Cards */
-.card {
-  background-color: #1c222b !important; /* surface_container_highest */
-  border: none !important;
-}
-
-/* Input Fields */
-.navbar__search-input {
-  background-color: #161b22 !important; /* surface_container_low */
-  border: none !important;
-  border-bottom: 1px solid rgba(58, 73, 74, 0.2) !important;
-  border-radius: 0 !important;
-}
-.navbar__search-input:focus {
-  border-bottom: 2px solid var(--ifm-color-primary) !important;
-}
-
-/* Active Links */
 .menu__link--active,
 .pagination-nav__link:hover,
 .navbar__link--active {
-  background-color: rgba(0, 245, 255, 0.1) !important;
-  color: var(--ifm-color-primary) !important;
+  background-color: var(--accent-soft) !important;
+  color: var(--accent) !important;
 }
 
-/* --- Vajra Landing Page Custom Styles --- */
+.button--primary {
+  background-color: var(--ink) !important;
+  color: var(--paper) !important;
+  border: none !important;
+  border-radius: var(--radius-pill) !important;
+  font-weight: 500 !important;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease !important;
+}
+
+.button--primary:hover {
+  background-color: var(--accent) !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -12px rgba(37, 99, 235, 0.7) !important;
+}
+
+.button--secondary {
+  background-color: var(--surface) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--radius-pill) !important;
+}
+
+.button--secondary:hover {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+
+.card {
+  background-color: var(--surface) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow) !important;
+}
+
+.navbar__search-input {
+  background-color: var(--paper-2) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 999px !important;
+}
+
+.navbar__search-input:focus {
+  border-color: var(--accent) !important;
+  outline: none;
+}
+
+/* ---------- Landing page ---------- */
 .vajra-landing {
-  font-family: 'Inter Variable', sans-serif;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  color: var(--ink);
 }
-.vajra-landing h1,
-.vajra-landing h2,
-.vajra-landing h3,
-.vajra-landing h4 {
-  font-family: 'Space Grotesk Variable', sans-serif;
+
+/* Pill nav: opaque enough that dark content behind it cannot wash out links */
+.vajra-landing .landing-nav {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
-.label-text {
-  font-family: 'Space Grotesk Variable', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+
+[data-theme='dark'] .vajra-landing .landing-nav {
+  background: rgba(18, 20, 27, 0.72);
 }
-.vajra-landing .glow-cyan {
-  filter: drop-shadow(0 0 6px rgba(0, 245, 255, 0.25));
+
+.vajra-landing .mono {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
 }
-.vajra-landing .material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
-}
-@keyframes flow {
-  0% {
-    background-position: -200% 0;
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
   }
-  100% {
-    background-position: 200% 0;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
-.vajra-landing .animate-flow {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(0, 245, 255, 0.4),
-    transparent
-  );
-  background-size: 200% 100%;
-  animation: flow 2.5s infinite linear;
+
+.vajra-landing .reveal {
+  opacity: 0;
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+@keyframes grow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.vajra-landing .bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: grow 1.2s cubic-bezier(0.2, 0.75, 0.25, 1) forwards;
+}
+
+.vajra-landing .bar-fill.win {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+.vajra-landing .bar-fill.comp {
+  background: var(--taupe);
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.vajra-landing .caret {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--accent);
+  vertical-align: -3px;
+  animation: blink 1.1s steps(1) infinite;
+}
+
+/* Terminal syntax */
+.vajra-landing .tk-prompt {
+  color: #79b8ff;
+}
+.vajra-landing .tk-cmd {
+  color: #e1e4e8;
+  font-weight: 600;
+}
+.vajra-landing .tk-kw {
+  color: #f97583;
+}
+.vajra-landing .tk-fn {
+  color: #b392f0;
+}
+.vajra-landing .tk-str {
+  color: #9ecbff;
+}
+.vajra-landing .tk-num {
+  color: #79b8ff;
+}
+.vajra-landing .tk-var {
+  color: #e1e4e8;
+}
+
+/* Copy button */
+.vajra-landing .copy-btn {
+  position: sticky;
+  right: 0;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  margin-top: 1px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background: #15151a;
+  border: 1px solid #26262b;
+  color: #9aa0aa;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.vajra-landing .copy-btn:hover {
+  background: #1c1c22;
+  color: #fff;
+  border-color: #33333a;
+}
+
+.vajra-landing .copy-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.vajra-landing .copy-btn .icon-check {
+  display: none;
+  color: var(--sage);
+}
+
+.vajra-landing .copy-btn.copied {
+  border-color: var(--sage);
+  color: var(--sage);
+}
+
+.vajra-landing .copy-btn.copied .icon-copy {
+  display: none;
+}
+
+.vajra-landing .copy-btn.copied .icon-check {
+  display: block;
+}
+
+.vajra-landing .copy-btn::after {
+  content: attr(data-label);
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) scale(0.9);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  background: var(--sage);
+  color: #fff;
+  padding: 4px 9px;
+  border-radius: 7px;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.18s,
+    transform 0.18s;
+}
+
+.vajra-landing .copy-btn.copied::after {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+/* GPU marker on benchmark bars */
+.vajra-landing .bar-block.marked {
+  position: relative;
+}
+
+.vajra-landing .bar-block.marked::before {
+  content: '';
+  position: absolute;
+  left: var(--mark, 22%);
+  bottom: 32px;
+  width: 2px;
+  height: 15px;
+  background: var(--accent);
+}
+
+.vajra-landing .bar-block.marked .bar-head {
+  position: relative;
+}
+
+.vajra-landing .bar-block.marked .bar-time {
+  position: absolute;
+  left: var(--fill, 22%);
+  transform: translateX(-50%);
+}
+
+/* Theme-aware logo swap */
+.brand-logo.logo-dark {
+  display: none;
+}
+
+[data-theme='dark'] .brand-logo.logo-light {
+  display: none;
+}
+
+[data-theme='dark'] .brand-logo.logo-dark {
+  display: block;
+}
+
+/* Always-dark cards stay distinct in dark mode */
+[data-theme='dark'] .vajra-landing .card-always-dark,
+[data-theme='dark'] .vajra-landing .cta-band {
+  background: #0e1119;
 }

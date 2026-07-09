@@ -1,74 +1,126 @@
+import React from 'react';
 import Link from '@docusaurus/Link';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative px-8 md:px-24 overflow-hidden py-8 md:py-12">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
-        <div className="flex-1 z-10">
-          <h1 className="text-4xl md:text-6xl font-black leading-[1] tracking-tighter mb-4 text-white">
-            High-Performance<br />Model Streamer
+    <section className="px-7 pb-[46px] pt-[70px]">
+      <div className="mx-auto grid max-w-wrap items-center gap-10 md:grid-cols-2 md:gap-14">
+        <div>
+          <span
+            className="reveal mb-[26px] inline-flex items-center rounded-[10px] border border-line bg-surface px-4 py-[7px] text-[0.92rem] font-medium text-ink-soft shadow-soft"
+            style={{ animationDelay: '0.1s' }}>
+            Open source Python SDK
+          </span>
+          <h1
+            className="reveal font-display text-[clamp(2.6rem,5.4vw,4.3rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-ink"
+            style={{ animationDelay: '0.18s' }}>
+            <span className="text-accent">World&apos;s Fastest</span>
+            <br />
+            Model Streamer
           </h1>
-          <p className="text-lg md:text-xl text-on-surface-variant font-headline font-medium tracking-tight mb-8 max-w-2xl">
-            Load models faster by overlapping download, RAM staging,&nbsp;<br />and CUDA transfer.
+          <p
+            className="reveal mt-6 max-w-[520px] text-[1.16rem] font-medium leading-[1.55] text-ink-soft"
+            style={{ animationDelay: '0.28s' }}>
+            Load models faster by overlapping download, RAM staging, and CUDA
+            transfer.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <Link to="/docs/quick-start" className="px-6 py-3 bg-primary-container text-black font-black uppercase tracking-widest text-sm hover:brightness-110 transition-all active:scale-95 no-underline hover:no-underline">
-              Get Started
+          <div
+            className="reveal mt-[34px] flex flex-wrap gap-3.5"
+            style={{ animationDelay: '0.38s' }}>
+            <Link
+              to="/docs/quick-start"
+              className="inline-flex items-center gap-2 rounded-full border border-transparent bg-ink px-[30px] py-[15px] text-[1.02rem] font-medium text-paper no-underline transition-all duration-250 hover:-translate-y-0.5 hover:bg-accent hover:text-white hover:no-underline hover:shadow-[0_14px_30px_-12px_rgba(37,99,235,0.7)]">
+              Get started
             </Link>
-            <Link to="/blog" className="px-6 py-3 border border-outline text-white font-bold uppercase tracking-widest text-sm hover:bg-white/5 transition-all active:scale-95 flex items-center justify-center no-underline hover:no-underline">
-              View Benchmarks
-            </Link>
+            <a
+              href="#benchmarks"
+              className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-[30px] py-[15px] text-[1.02rem] font-medium text-ink no-underline transition-all duration-250 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:no-underline">
+              View benchmarks →
+            </a>
           </div>
         </div>
-        {/* Hero Stat Widget */}
-        <div className="w-full md:w-[380px] bg-surface-container-low border-2 border-outline-variant/30 p-8 flex flex-col justify-between relative shadow-xl">
-          <div className="absolute inset-0 bg-gradient-to-tr from-primary-container/10 to-transparent opacity-50"></div>
-          <div className="relative z-10 w-full">
-            <h3 className="text-[15px] uppercase tracking-[0.4em] text-on-surface-variant font-bold mb-6">Model Load Time</h3>
-            <div className="space-y-6">
-              {/* Vajra Bar */}
-              <div>
-                <div className="flex justify-between text-s font-mono mb-2">
-                  <span className="text-primary-container font-black uppercase">Vajra</span>
-                  <span className="text-white font-black">8.22s</span>
-                </div>
-                <div className="h-6 bg-surface-container-lowest w-full border border-primary-container/30">
-                  <div className="h-full bg-primary-container shadow-[0_0_6px_rgba(0,245,255,0.2)]" style={{ width: '22.29%' }}></div>
-                </div>
-              </div>
-              {/* hf_transfer Bar */}
-              <div>
-                <div className="flex justify-between text-s font-mono mb-2">
-                  <span className="text-on-surface-variant font-bold uppercase">hf_transfer</span>
-                  <span className="text-on-surface-variant font-bold">36.88s</span>
-                </div>
-                <div className="h-6 bg-surface-container-lowest w-full border border-amber/30">
-                  <div className="h-full bg-amber shadow-[0_0_6px_rgba(255,183,77,0.2)]" style={{ width: '100%' }}></div>
-                </div>
-              </div>
-              {/* Run:ai Bar */}
-              <div>
-                <div className="flex justify-between text-s font-mono mb-2">
-                  <span className="text-on-surface-variant font-bold uppercase tracking-widest">Run:ai</span>
-                  <span className="text-on-surface-variant font-bold">15.85s</span>
-                </div>
-                <div className="h-6 bg-surface-container-lowest w-full border border-white/20">
-                  <div className="h-full shadow-[0_0_8px_rgba(255,255,255,0.4)]" style={{ width: '42.98%', backgroundColor: '#ffffff' }}></div>
-                </div>
-              </div>
-            </div>
-            <div className="mt-8 pt-4 border-t border-outline-variant/40 flex justify-between items-center">
-              <span className="text-lg font-mono text-on-surface-variant uppercase tracking-widest font-bold">Performance Delta</span>
-              <span className="text-green-400 font-black text-lg">4.5x Faster</span>
-            </div>
-            <p className="mt-4 text-[10.1px] font-mono text-on-surface-variant/60 uppercase tracking-wider leading-relaxed">
-              Measured from request start to model weights staged in memory on the same model, machine, and network.
-            </p>
-            <p className="mt-2 text-l font-mono text-primary-container uppercase tracking-wider leading-relaxed font-bold">
-              GPU loading began at 0.65s
-            </p>
 
+        <div
+          className="reveal rounded-lg border border-line bg-surface p-8 shadow-soft"
+          style={{ animationDelay: '0.56s' }}>
+          <div className="mb-[26px] flex items-center justify-between gap-4">
+            <div className="font-mono text-[1.05rem] font-semibold uppercase leading-none tracking-[0.14em] text-muted">
+              Model Load Time
+            </div>
+            <span className="rounded-lg bg-sage-soft px-3 py-1.5 font-mono text-[0.82rem] font-semibold uppercase tracking-[0.08em] text-sage">
+              Lower is better
+            </span>
           </div>
+
+          <div className="flex flex-col gap-[22px]">
+            <div>
+              <div className="mb-[9px] flex items-baseline justify-between">
+                <span className="font-mono text-[1.05rem] font-medium tracking-[0.04em] text-accent">
+                  VAJRA
+                </span>
+                <span className="font-mono text-[1.1rem] font-semibold tabular-nums text-accent">
+                  8.22s
+                </span>
+              </div>
+              <div className="h-[22px] overflow-hidden rounded-lg bg-paper-2">
+                <div
+                  className="bar-fill win"
+                  style={{ width: '22%', animationDelay: '0.1s' }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="mb-[9px] flex items-baseline justify-between">
+                <span className="font-mono text-[1.05rem] font-medium tracking-[0.04em] text-ink-soft">
+                  HF_TRANSFER
+                </span>
+                <span className="font-mono text-[1.1rem] font-semibold tabular-nums">
+                  36.88s
+                </span>
+              </div>
+              <div className="h-[22px] overflow-hidden rounded-lg bg-paper-2">
+                <div
+                  className="bar-fill comp"
+                  style={{ width: '100%', animationDelay: '0.22s' }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="mb-[9px] flex items-baseline justify-between">
+                <span className="font-mono text-[1.05rem] font-medium tracking-[0.04em] text-ink-soft">
+                  RUN:AI
+                </span>
+                <span className="font-mono text-[1.1rem] font-semibold tabular-nums">
+                  15.85s
+                </span>
+              </div>
+              <div className="h-[22px] overflow-hidden rounded-lg bg-paper-2">
+                <div
+                  className="bar-fill comp"
+                  style={{ width: '43%', animationDelay: '0.34s' }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-7 flex items-center justify-between gap-4 border-t border-line pt-[26px]">
+            <div className="font-mono text-[1.05rem] font-semibold uppercase leading-[1.4] tracking-[0.1em] text-muted">
+              Performance
+              <br />
+              Delta
+            </div>
+            <div className="text-right font-display text-[2.3rem] font-semibold leading-none tracking-[-0.02em] text-sage">
+              350%
+              <span className="mt-1 block text-[1.25rem]">(4.5× faster)</span>
+            </div>
+          </div>
+          <p className="mt-5 text-[1.05rem] font-medium leading-[1.55] text-muted">
+            Measured from request start to model weights staged in memory on the
+            same model, machine, and network.
+            <span className="mono mt-3 block text-base font-semibold tracking-[0.03em] text-accent">
+              GPU loading began at 0.65s
+            </span>
+          </p>
         </div>
       </div>
     </section>

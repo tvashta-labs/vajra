@@ -29,7 +29,7 @@ config = StreamConfig(
 | `chunk_workers` | `int` | `16` | Number of parallel download workers. |
 | `gpu_workers` | `int` | `3` | Number of workers dedicated to GPU copy work. |
 | `disable_cache` | `bool` | `False` | When `True`, disables the native on-disk cache. |
-| `log_level` | `int` | `4` | vibe.d log verbosity. |
+| `log_level` | `int` | `4` | Native log verbosity. |
 
 ## Chunk Size
 
