@@ -2,11 +2,25 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://vajra.tvashta-labs.in/blog</id>
     <title>Vajra Blog</title>
-    <updated>2026-05-16T00:00:00.000Z</updated>
+    <updated>2026-06-24T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://vajra.tvashta-labs.in/blog"/>
     <subtitle>Vajra Blog</subtitle>
     <icon>https://vajra.tvashta-labs.in/img/favicon.png</icon>
+    <entry>
+        <title type="html"><![CDATA[Hello from Vajra]]></title>
+        <id>https://vajra.tvashta-labs.in/blog/hello-vajra</id>
+        <link href="https://vajra.tvashta-labs.in/blog/hello-vajra"/>
+        <updated>2026-06-24T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[A placeholder post to kick off the Vajra blog.]]></summary>
+        <content type="html"><![CDATA[<p>This is a placeholder post to kick off the Vajra blog. It exists so the blog
+layout, feeds, and navigation have real content to render while the first
+real write-ups are in progress.</p>
+<p>Expect future posts to cover benchmark deep-dives, design notes on overlapping
+download, RAM staging, and CUDA transfer, and release announcements. Until
+then, check out the <a class="" href="https://vajra.tvashta-labs.in/docs/overview">Overview</a> and
+<a class="" href="https://vajra.tvashta-labs.in/docs/quick-start">Quick Start</a> to see what Vajra does today.</p>]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Benchmarks coming soon]]></title>
         <id>https://vajra.tvashta-labs.in/blog/benchmarks-coming-soon</id>

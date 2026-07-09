@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkwebsite=globalThis.webpackChunkwebsite||[]).push([[472],{5513(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Benchmarks coming soon","permalink":"/blog/benchmarks-coming-soon","unlisted":false,"date":"2026-05-16T00:00:00.000Z"}]}')}}]);

@@ -4,10 +4,24 @@
         <title>Vajra Blog</title>
         <link>https://vajra.tvashta-labs.in/blog</link>
         <description>Vajra Blog</description>
-        <lastBuildDate>Sat, 16 May 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 24 Jun 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Hello from Vajra]]></title>
+            <link>https://vajra.tvashta-labs.in/blog/hello-vajra</link>
+            <guid>https://vajra.tvashta-labs.in/blog/hello-vajra</guid>
+            <pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[A placeholder post to kick off the Vajra blog.]]></description>
+            <content:encoded><![CDATA[<p>This is a placeholder post to kick off the Vajra blog. It exists so the blog
+layout, feeds, and navigation have real content to render while the first
+real write-ups are in progress.</p>
+<p>Expect future posts to cover benchmark deep-dives, design notes on overlapping
+download, RAM staging, and CUDA transfer, and release announcements. Until
+then, check out the <a class="" href="https://vajra.tvashta-labs.in/docs/overview">Overview</a> and
+<a class="" href="https://vajra.tvashta-labs.in/docs/quick-start">Quick Start</a> to see what Vajra does today.</p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Benchmarks coming soon]]></title>
             <link>https://vajra.tvashta-labs.in/blog/benchmarks-coming-soon</link>
