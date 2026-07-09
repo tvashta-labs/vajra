@@ -18,7 +18,7 @@ pip install vajra-streamer
 | Python | `>=3.8` |
 | PyTorch | `torch>=2.0.0` |
 | CUDA | Required |
-| Native library | `libvajra.so` |
+| Native library | `libvajra.so` on Linux or `libvajra.dylib` on macOS |
 
 The package returns CUDA tensors, so a CPU-only PyTorch install is not enough.
 

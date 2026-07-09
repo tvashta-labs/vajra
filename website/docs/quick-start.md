@@ -5,11 +5,18 @@ sidebar_label: Quick Start
 
 # Quick Start
 
+This is the smallest normal usage pattern:
+
 ```python
 from vajra import VajraStreamer, StreamConfig
 
 config = StreamConfig(
     auth_token="hf_...",   # Required for gated Hugging Face models.
+    chunk_size_mb=64,
+    chunk_workers=16,
+    gpu_workers=3,
+    disable_cache=False,
+    log_level=4,           # 4 = info
 )
 
 with VajraStreamer(config) as streamer:
@@ -19,20 +26,29 @@ with VajraStreamer(config) as streamer:
         print(name, tensor.shape, tensor.dtype, tensor.device)
 ```
 
-`load()` resolves the Hugging Face repo, streams its `.safetensors` files into GPU memory, and returns a dictionary of tensor name to CUDA tensor. The keys come from `.safetensors` metadata. The values point at GPU memory owned by the native library.
+## What This Does
 
-## Tensor Lifetime
+`streamer.load(...)` resolves the Hugging Face repo, finds `.safetensors` files, streams them through the native library, allocates GPU memory, and returns a dictionary of tensor name to CUDA tensor.
 
-Use those tensors only inside the `with` block. When the block exits, the native library frees the backing VRAM, and any remaining references become invalid.
+## Keep Tensor Work Inside `with`
 
-If you need a tensor after the block, clone it first:
+The returned tensors point at GPU memory owned by the native library. When the `with` block exits, `VajraStreamer` frees that memory.
 
 ```python
 with VajraStreamer(config) as streamer:
     tensors = streamer.load("owner/model")
-    copied = tensors["model.embed_tokens.weight"].clone()
+    first_tensor = next(iter(tensors.values()))
+    print(first_tensor.shape)
+```
+
+If you need a tensor after the `with` block, clone it while the block is still active:
+
+```python
+with VajraStreamer(config) as streamer:
+    tensors = streamer.load("owner/model")
+    copied = next(iter(tensors.values())).clone()
 
 # `copied` owns separate memory now.
 ```
 
-For chunking, workers, cache, and logging, see [Configuration](./configuration.md).
+For the full memory rule, read [Tensors and Lifetime](./tensors-and-lifetime.md).
