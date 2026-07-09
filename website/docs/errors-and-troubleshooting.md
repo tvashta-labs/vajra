@@ -15,17 +15,7 @@ sidebar_label: Errors and Troubleshooting
 
 ## Import Fails With `OSError`
 
-What this usually means: Python found the `vajra` package, but could not load `libvajra`.
-
-Check that the native library exists in one of these locations:
-
-```text
-python/vajra/libvajra.so
-python/libvajra.so
-libvajra.so
-```
-
-On macOS, use `libvajra.dylib`.
+Python found the `vajra` package, but could not load `libvajra`. Confirm the native library is installed and discoverable as `libvajra.so`.
 
 ## `ConnectionError`
 
@@ -37,13 +27,11 @@ Common causes:
 - The URL is not hosted on `huggingface.co`.
 - The Hugging Face model API is unreachable.
 
-What you might expect: if you pass a full URL, the loader streams that exact file.
-
-The tricky part: the native resolver uses the URL only to recover `owner/model`, then asks Hugging Face for all `.safetensors` files in that repo. If that API request fails, `load()` raises `ConnectionError`.
+For how repo ids and URLs are resolved, see [Model Inputs](./model-inputs.md).
 
 ## `MemoryError`
 
-`MemoryError` usually means the model's combined `.safetensors` payload does not fit into available VRAM, or the native layer hit a fatal CUDA synchronization or allocation problem.
+Usually the model's combined `.safetensors` payload does not fit in available VRAM, or CUDA allocation failed.
 
 Try:
 
@@ -54,6 +42,4 @@ Try:
 
 ## Process Exit Looks Abrupt
 
-Importing `vajra` registers `os._exit(0)` as an `atexit` handler. This bypasses normal Python shutdown to avoid a native D runtime shutdown segfault.
-
-The practical consequence: shutdown callbacks, some `atexit` handlers, and cleanup code after the interpreter begins exiting may not run normally. Put important cleanup before the end of the script, not in process-shutdown hooks.
+Process shutdown may skip normal Python cleanup. Shutdown callbacks and some `atexit` handlers may not run. Put important cleanup before the end of the script, not in process-shutdown hooks.
