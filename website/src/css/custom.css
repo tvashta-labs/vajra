@@ -472,14 +472,18 @@ body::after {
   background: var(--accent);
 }
 
-.vajra-landing .bar-block.marked .bar-head {
-  position: relative;
-}
+/* Align time over the bar end only when there's room; on mobile
+   keep the normal flex justify-between so it doesn't collide with the name. */
+@media (min-width: 640px) {
+  .vajra-landing .bar-block.marked .bar-head {
+    position: relative;
+  }
 
-.vajra-landing .bar-block.marked .bar-time {
-  position: absolute;
-  left: var(--fill, 22%);
-  transform: translateX(-50%);
+  .vajra-landing .bar-block.marked .bar-time {
+    position: absolute;
+    left: var(--fill, 22%);
+    transform: translateX(-50%);
+  }
 }
 
 /* Theme-aware logo swap */
