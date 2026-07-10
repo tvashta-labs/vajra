@@ -72,22 +72,6 @@ export const Hero: React.FC = () => {
             <div>
               <div className="mb-[9px] flex items-baseline justify-between">
                 <span className="font-mono text-[1.05rem] font-medium tracking-[0.04em] text-ink-soft">
-                  HF_TRANSFER
-                </span>
-                <span className="font-mono text-[1.1rem] font-semibold tabular-nums">
-                  36.88s
-                </span>
-              </div>
-              <div className="h-[22px] overflow-hidden rounded-lg bg-paper-2">
-                <div
-                  className="bar-fill comp"
-                  style={{ width: '100%', animationDelay: '0.22s' }}
-                />
-              </div>
-            </div>
-            <div>
-              <div className="mb-[9px] flex items-baseline justify-between">
-                <span className="font-mono text-[1.05rem] font-medium tracking-[0.04em] text-ink-soft">
                   RUN:AI
                 </span>
                 <span className="font-mono text-[1.1rem] font-semibold tabular-nums">
@@ -97,7 +81,23 @@ export const Hero: React.FC = () => {
               <div className="h-[22px] overflow-hidden rounded-lg bg-paper-2">
                 <div
                   className="bar-fill comp"
-                  style={{ width: '43%', animationDelay: '0.34s' }}
+                  style={{ width: '43%', animationDelay: '0.22s' }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="mb-[9px] flex items-baseline justify-between">
+                <span className="font-mono text-[1.05rem] font-medium tracking-[0.04em] text-ink-soft">
+                  HF_TRANSFER
+                </span>
+                <span className="font-mono text-[1.1rem] font-semibold tabular-nums">
+                  36.88s
+                </span>
+              </div>
+              <div className="h-[22px] overflow-hidden rounded-lg bg-paper-2">
+                <div
+                  className="bar-fill comp"
+                  style={{ width: '100%', animationDelay: '0.34s' }}
                 />
               </div>
             </div>
