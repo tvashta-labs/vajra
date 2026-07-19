@@ -28,13 +28,27 @@ export const Footer: React.FC = () => {
               © 2026 Tvashta Labs.
             </p>
           </div>
-          <div className="flex gap-[30px] font-mono text-[0.88rem] font-semibold uppercase tracking-[0.08em]">
+          <div className="flex max-w-full flex-wrap gap-x-[30px] gap-y-3 font-mono text-[0.88rem] font-semibold uppercase tracking-[0.08em]">
             <a
               href="https://github.com/tvashta-labs/vajra"
               target="_blank"
               rel="noopener noreferrer"
               className="text-ink-soft transition-colors hover:text-accent hover:no-underline">
               GitHub
+            </a>
+            <a
+              href="https://discord.gg/dsqVmnsYZe"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ink-soft transition-colors hover:text-accent hover:no-underline">
+              Discord
+            </a>
+            <a
+              href="https://www.linkedin.com/company/tvashta-labs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ink-soft transition-colors hover:text-accent hover:no-underline">
+              LinkedIn
             </a>
             <Link
               to="/docs/quick-start"
