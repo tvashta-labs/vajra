@@ -1,0 +1,914 @@
+---
+slug: reproducible-vajra-runai-hugging-face-benchmark
+title: "Reproducible Benchmarks: Vajra vs. NVIDIA Run:ai Model Streamer vs. Hugging Face Hub"
+description: A reproducible comparison of Vajra, NVIDIA Run:ai Model Streamer, and Hugging Face Hub model-loading performance.
+---
+
+import BenchmarkSnapshot from '@site/src/components/BenchmarkSnapshot';
+
+This benchmark compares Vajra, NVIDIA Run:ai Model Streamer, and Hugging Face
+Hub using the same model and test machine. The original notebook and its raw
+output are included so that the test can be inspected and reproduced.
+
+<!-- truncate -->
+
+## Test Environment
+
+| Component | Specification |
+|---|---|
+| Instance | `vcg-l40s-16c-180g-48vram` |
+| GPU | 1 NVIDIA L40S, 48 GB VRAM |
+| CPU | 16 vCPUs |
+| Memory | 180 GB |
+| Storage | 1,200 GB NVMe |
+| Model | `meta-llama/Meta-Llama-3-8B` |
+| Model size | 14.96 GiB |
+
+## Methodology
+
+The S3 tests use the same source files and final GPU destination. GPU tensors
+were released and the CUDA cache was cleared between runs. The reported values
+are wall-clock times from one benchmark run.
+
+The Hugging Face `snapshot_download` result measures a download to local NVMe,
+so it is not a strictly identical destination comparison.
+
+## Results
+
+<BenchmarkSnapshot />
+
+| Loader | Path | Time |
+|---|---|---:|
+| Hugging Face `snapshot_download` | Hugging Face to NVMe | 37.315 s |
+| NVIDIA Run:ai Model Streamer | S3 to GPU | 15.854 s |
+| Vajra | S3 to GPU | 12.971 s |
+| Vajra | Hugging Face to GPU | 8.162 s |
+
+In this run, Vajra's S3-to-GPU path was **1.22x faster** than NVIDIA Run:ai
+Model Streamer. Vajra's Hugging Face-to-GPU path completed in **8.162 seconds**.
+Results may vary with network conditions, package versions, and concurrency
+settings.
+
+## Reproduce the Benchmark
+
+[Download the original Jupyter notebook](pathname:///notebooks/15June1939_s3_runai_vs_vajra.ipynb),
+configure the required Hugging Face and AWS credentials, and run all cells from
+top to bottom. The complete notebook code and raw output are also included
+below.
+
+## Full Notebook and Raw Output
+
+The rendered notebook is included below for readers who want to inspect the
+complete code and output without downloading it.
+
+**Run date:** 27 May 2026, 17:07
+
+**Goal:** Benchmark `runai-model-streamer` and `vajra-streamer` against the same
+S3 source, on the same instance, with the same final GPU destination.
+
+**Flow:**
+
+1. Download the Hugging Face model to local disk once.
+2. Upload that local model directory to S3 using `aws s3 sync`.
+3. Stream the S3 safetensors files to GPU using Run:ai Model Streamer and record timing.
+4. Release GPU tensors and clear CUDA cache.
+5. Stream the same S3 source to GPU using Vajra and record timing.
+6. Compare wall-clock load time, tensor count, and loaded tensor bytes.
+
+```python
+%pip install -U \
+  huggingface_hub \
+  hf_transfer \
+  torch \
+  pandas \
+  awscli \
+  runai-model-streamer \
+  runai-model-streamer-s3 \
+  --pre vajra-streamer==0.0.46b11 --break-system-packages
+```
+
+```text
+    Defaulting to user installation because normal site-packages is not writeable
+    Requirement already satisfied: huggingface_hub in ./.local/lib/python3.12/site-packages (1.19.0)
+    Requirement already satisfied: hf_transfer in ./.local/lib/python3.12/site-packages (0.1.9)
+    Requirement already satisfied: torch in ./.local/lib/python3.12/site-packages (2.12.0)
+    Requirement already satisfied: pandas in ./.local/lib/python3.12/site-packages (3.0.3)
+    Requirement already satisfied: awscli in ./.local/lib/python3.12/site-packages (1.45.29)
+    Requirement already satisfied: runai-model-streamer in ./.local/lib/python3.12/site-packages (0.16.0)
+    Requirement already satisfied: runai-model-streamer-s3 in ./.local/lib/python3.12/site-packages (0.16.0)
+    Requirement already satisfied: vajra-streamer==0.0.46b11 in ./.local/lib/python3.12/site-packages (0.0.46b11)
+    Requirement already satisfied: numpy in ./.local/lib/python3.12/site-packages (from vajra-streamer==0.0.46b11) (2.5.0rc1)
+    Requirement already satisfied: nvidia-cuda-runtime-cu12 in ./.local/lib/python3.12/site-packages (from vajra-streamer==0.0.46b11) (12.9.79)
+    Requirement already satisfied: click>=8.4.0 in ./.local/lib/python3.12/site-packages (from huggingface_hub) (8.4.1)
+    Requirement already satisfied: filelock>=3.10.0 in ./.local/lib/python3.12/site-packages (from huggingface_hub) (3.29.1)
+    Requirement already satisfied: fsspec>=2023.5.0 in ./.local/lib/python3.12/site-packages (from huggingface_hub) (2026.4.0)
+    Requirement already satisfied: hf-xet<2.0.0,>=1.5.1 in ./.local/lib/python3.12/site-packages (from huggingface_hub) (1.5.1)
+    Requirement already satisfied: httpx<1,>=0.23.0 in ./.local/lib/python3.12/site-packages (from huggingface_hub) (0.28.1)
+    Requirement already satisfied: packaging>=20.9 in /usr/lib/python3/dist-packages (from huggingface_hub) (24.0)
+    Requirement already satisfied: pyyaml>=5.1 in /usr/lib/python3/dist-packages (from huggingface_hub) (6.0.1)
+    Requirement already satisfied: tqdm>=4.42.1 in ./.local/lib/python3.12/site-packages (from huggingface_hub) (4.67.3)
+    Requirement already satisfied: typer<0.26.0,>=0.20.0 in ./.local/lib/python3.12/site-packages (from huggingface_hub) (0.25.1)
+    Requirement already satisfied: typing-extensions>=4.1.0 in /usr/lib/python3/dist-packages (from huggingface_hub) (4.10.0)
+    Requirement already satisfied: setuptools<82 in /usr/lib/python3/dist-packages (from torch) (68.1.2)
+    Requirement already satisfied: sympy>=1.13.3 in ./.local/lib/python3.12/site-packages (from torch) (1.14.0)
+    Requirement already satisfied: networkx>=2.5.1 in ./.local/lib/python3.12/site-packages (from torch) (3.6.1)
+    Requirement already satisfied: jinja2 in /usr/lib/python3/dist-packages (from torch) (3.1.2)
+    Requirement already satisfied: cuda-toolkit==13.0.2 in ./.local/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch) (13.0.2)
+    Requirement already satisfied: nvidia-cublas<=13.1.1.3,>=13.1.0.3 in ./.local/lib/python3.12/site-packages (from torch) (13.1.1.3)
+    Requirement already satisfied: cuda-bindings<14,>=13.0.3 in ./.local/lib/python3.12/site-packages (from torch) (13.3.1)
+    Requirement already satisfied: nvidia-cudnn-cu13==9.20.0.48 in ./.local/lib/python3.12/site-packages (from torch) (9.20.0.48)
+    Requirement already satisfied: nvidia-cusparselt-cu13==0.8.1 in ./.local/lib/python3.12/site-packages (from torch) (0.8.1)
+    Requirement already satisfied: nvidia-nccl-cu13==2.29.7 in ./.local/lib/python3.12/site-packages (from torch) (2.29.7)
+    Requirement already satisfied: nvidia-nvshmem-cu13==3.4.5 in ./.local/lib/python3.12/site-packages (from torch) (3.4.5)
+    Requirement already satisfied: triton==3.7.0 in ./.local/lib/python3.12/site-packages (from torch) (3.7.0)
+    Requirement already satisfied: nvidia-cuda-runtime==13.0.96.* in ./.local/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch) (13.0.96)
+    Requirement already satisfied: nvidia-cufft==12.0.0.61.* in ./.local/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch) (12.0.0.61)
+    Requirement already satisfied: nvidia-cufile==1.15.1.6.* in ./.local/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch) (1.15.1.6)
+    Requirement already satisfied: nvidia-cuda-cupti==13.0.85.* in ./.local/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch) (13.0.85)
+    Requirement already satisfied: nvidia-curand==10.4.0.35.* in ./.local/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch) (10.4.0.35)
+    Requirement already satisfied: nvidia-cusolver==12.0.4.66.* in ./.local/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch) (12.0.4.66)
+    Requirement already satisfied: nvidia-cusparse==12.6.3.3.* in ./.local/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch) (12.6.3.3)
+    Requirement already satisfied: nvidia-nvjitlink==13.0.88.* in ./.local/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch) (13.0.88)
+    Requirement already satisfied: nvidia-cuda-nvrtc==13.0.88.* in ./.local/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch) (13.0.88)
+    Requirement already satisfied: nvidia-nvtx==13.0.85.* in ./.local/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch) (13.0.85)
+    Requirement already satisfied: python-dateutil>=2.8.2 in /usr/lib/python3/dist-packages (from pandas) (2.8.2)
+    Requirement already satisfied: botocore==1.43.29 in ./.local/lib/python3.12/site-packages (from awscli) (1.43.29)
+    Requirement already satisfied: docutils<=0.19,>=0.18.1 in ./.local/lib/python3.12/site-packages (from awscli) (0.19)
+    Requirement already satisfied: s3transfer<0.19.0,>=0.18.0 in ./.local/lib/python3.12/site-packages (from awscli) (0.18.0)
+    Requirement already satisfied: colorama<0.4.7,>=0.2.5 in /usr/lib/python3/dist-packages (from awscli) (0.4.6)
+    Requirement already satisfied: rsa<4.8,>=3.1.2 in ./.local/lib/python3.12/site-packages (from awscli) (4.7.2)
+    Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in /usr/lib/python3/dist-packages (from botocore==1.43.29->awscli) (1.0.1)
+    Requirement already satisfied: urllib3!=2.2.0,<3,>=1.25.4 in /usr/lib/python3/dist-packages (from botocore==1.43.29->awscli) (2.0.7)
+    Requirement already satisfied: humanize in ./.local/lib/python3.12/site-packages (from runai-model-streamer) (4.15.0)
+    Requirement already satisfied: boto3 in /usr/lib/python3/dist-packages (from runai-model-streamer-s3) (1.34.46)
+    Requirement already satisfied: cuda-pathfinder>=1.4.2 in ./.local/lib/python3.12/site-packages (from cuda-bindings<14,>=13.0.3->torch) (1.5.5)
+    Requirement already satisfied: anyio in ./.local/lib/python3.12/site-packages (from httpx<1,>=0.23.0->huggingface_hub) (4.13.0)
+    Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from httpx<1,>=0.23.0->huggingface_hub) (2023.11.17)
+    Requirement already satisfied: httpcore==1.* in ./.local/lib/python3.12/site-packages (from httpx<1,>=0.23.0->huggingface_hub) (1.0.9)
+    Requirement already satisfied: idna in /usr/lib/python3/dist-packages (from httpx<1,>=0.23.0->huggingface_hub) (3.6)
+    Requirement already satisfied: h11>=0.16 in ./.local/lib/python3.12/site-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface_hub) (0.16.0)
+    Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa<4.8,>=3.1.2->awscli) (0.4.8)
+    Requirement already satisfied: mpmath<1.4,>=1.1.0 in ./.local/lib/python3.12/site-packages (from sympy>=1.13.3->torch) (1.3.0)
+    Requirement already satisfied: shellingham>=1.3.0 in ./.local/lib/python3.12/site-packages (from typer<0.26.0,>=0.20.0->huggingface_hub) (1.5.4)
+    Requirement already satisfied: rich>=13.8.0 in ./.local/lib/python3.12/site-packages (from typer<0.26.0,>=0.20.0->huggingface_hub) (15.0.0)
+    Requirement already satisfied: annotated-doc>=0.0.2 in ./.local/lib/python3.12/site-packages (from typer<0.26.0,>=0.20.0->huggingface_hub) (0.0.4)
+    Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/lib/python3/dist-packages (from rich>=13.8.0->typer<0.26.0,>=0.20.0->huggingface_hub) (3.0.0)
+    Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/lib/python3/dist-packages (from rich>=13.8.0->typer<0.26.0,>=0.20.0->huggingface_hub) (2.17.2)
+    Requirement already satisfied: mdurl~=0.1 in /usr/lib/python3/dist-packages (from markdown-it-py>=2.2.0->rich>=13.8.0->typer<0.26.0,>=0.20.0->huggingface_hub) (0.1.2)
+    Note: you may need to restart the kernel to use updated packages.
+```
+
+
+## Configuration
+
+Set these before running upstream:
+
+```bash
+export HF_TOKEN=...
+export BENCH_MODEL_ID=meta-llama/Meta-Llama-3-8B
+export BENCH_S3_URI=s3://your-bucket/path/to/model
+export AWS_REGION=ap-south-1
+```
+
+Optional knobs:
+
+```bash
+export BENCH_DEVICE=cuda:0
+export BENCH_LOCAL_DIR=/tmp/vajra-bench-model
+export RUNAI_STREAMER_CONCURRENCY=16
+export VAJRA_CHUNK_WORKERS=16
+export VAJRA_GPU_WORKERS=4
+export VAJRA_CHUNK_SIZE_MB=128
+```
+
+
+```python
+import gc
+import json
+import os
+import pathlib
+import shutil
+import subprocess
+import time
+from contextlib import contextmanager
+from urllib.parse import urlparse
+
+import pandas as pd
+import torch
+from huggingface_hub import snapshot_download
+
+os.environ.setdefault("HF_HUB_ENABLE_HF_TRANSFER", "1")
+
+HF_TOKEN = os.getenv("HF_TOKEN", "<YOUR_HF_TOKEN>")
+MODEL_ID = os.getenv("BENCH_MODEL_ID", "meta-llama/Meta-Llama-3-8B")
+LOCAL_MODEL_DIR = pathlib.Path(os.getenv("BENCH_LOCAL_DIR", f"/tmp/vajra-bench/{MODEL_ID.replace('/', '--')}"))
+S3_URI = os.getenv("BENCH_S3_URI", "s3://your-bucket/path/to/model").rstrip("/")
+DEVICE = os.getenv("BENCH_DEVICE", "cuda:0")
+
+RUNAI_CONCURRENCY = int(os.getenv("RUNAI_STREAMER_CONCURRENCY", "16"))
+VAJRA_CHUNK_WORKERS = int(os.getenv("VAJRA_CHUNK_WORKERS", "128"))
+VAJRA_GPU_WORKERS = int(os.getenv("VAJRA_GPU_WORKERS", "4"))
+VAJRA_CHUNK_SIZE_MB = int(os.getenv("VAJRA_CHUNK_SIZE_MB", "8"))
+VAJRA_LOG_LEVEL = int(os.getenv("VAJRA_LOG_LEVEL", "4"))
+
+if not S3_URI.startswith("s3://"):
+    raise ValueError("Set BENCH_S3_URI to the S3 prefix for this benchmark, e.g. s3://bucket/prefix/model")
+
+print(json.dumps({
+    "model_id": MODEL_ID,
+    "local_model_dir": str(LOCAL_MODEL_DIR),
+    "s3_uri": S3_URI,
+    "device": DEVICE,
+    "runai_concurrency": RUNAI_CONCURRENCY,
+    "vajra_chunk_workers": VAJRA_CHUNK_WORKERS,
+    "vajra_gpu_workers": VAJRA_GPU_WORKERS,
+    "vajra_chunk_size_mb": VAJRA_CHUNK_SIZE_MB,
+}, indent=2))
+```
+
+```text
+    {
+      "model_id": "meta-llama/Meta-Llama-3-8B",
+      "local_model_dir": "/tmp/vajra-bench/meta-llama--Meta-Llama-3-8B",
+      "s3_uri": "s3://your-bucket/path/to/model",
+      "device": "cuda:0",
+      "runai_concurrency": 16,
+      "vajra_chunk_workers": 128,
+      "vajra_gpu_workers": 4,
+      "vajra_chunk_size_mb": 8
+    }
+
+
+    /home/username/.local/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+      from .autonotebook import tqdm as notebook_tqdm
+```
+
+
+
+```python
+import gc
+import torch
+
+def bytes_to_gib(n: int) -> float:
+    return n / (1024 ** 3)
+
+
+def tensor_nbytes(tensor) -> int:
+    return int(tensor.numel() * tensor.element_size())
+
+
+def tensor_collection_nbytes(tensors: dict) -> int:
+    return sum(tensor_nbytes(t) for t in tensors.values())
+
+
+def join_s3(prefix: str, name: str) -> str:
+    return prefix.rstrip("/") + "/" + name.lstrip("/")
+
+
+def release_gpu_objects(*names):
+    for name in names:
+        if name in globals():
+            del globals()[name]
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+        torch.cuda.ipc_collect()
+        torch.cuda.synchronize()
+
+
+def cuda_memory_snapshot(label: str):
+    if not torch.cuda.is_available():
+        print(f"{label}: CUDA unavailable")
+        return
+    torch.cuda.synchronize()
+    print(
+        f"{label}: allocated={bytes_to_gib(torch.cuda.memory_allocated()):.2f} GiB, "
+        f"reserved={bytes_to_gib(torch.cuda.memory_reserved()):.2f} GiB"
+    )
+
+
+benchmark_results = []
+
+
+@contextmanager
+def timed_case(name: str):
+    if torch.cuda.is_available():
+        torch.cuda.synchronize()
+    start = time.perf_counter()
+    record = {"name": name}
+    try:
+        yield record
+    finally:
+        if torch.cuda.is_available():
+            torch.cuda.synchronize()
+        record["seconds"] = time.perf_counter() - start
+        benchmark_results.append(record)
+        print(f"{name}: {record['seconds']:.3f}s")
+```
+
+## Step 1: Download Model To Disk Once
+
+This prepares the benchmark source. Do not include this time in the Run:ai/Vajra comparison.
+
+
+```python
+LOCAL_MODEL_DIR.parent.mkdir(parents=True, exist_ok=True)
+
+with timed_case("hf_transfer_snapshot_download") as rec:
+    os.environ.setdefault("HF_HUB_ENABLE_HF_TRANSFER", "1")
+    downloaded_path = snapshot_download(
+        repo_id=MODEL_ID,
+        token=HF_TOKEN or None,
+        local_dir=str(LOCAL_MODEL_DIR),
+        local_dir_use_symlinks=False,
+        allow_patterns=[
+            "*.safetensors",
+            "*.safetensors.index.json",
+            "config.json",
+            "generation_config.json",
+            "tokenizer*",
+            "*.model",
+            "*.json",
+        ],
+    )
+
+local_model_path = pathlib.Path(downloaded_path)
+local_safetensors = sorted(local_model_path.glob("*.safetensors"))
+if not local_safetensors:
+    raise RuntimeError(f"No .safetensors files found in {local_model_path}")
+
+local_safetensor_bytes = sum(p.stat().st_size for p in local_safetensors)
+rec["source_gib"] = bytes_to_gib(local_safetensor_bytes)
+rec["tensor_count"] = 0
+rec["tensor_gib"] = 0
+print(f"Downloaded to: {local_model_path}")
+print(f"Safetensors files: {len(local_safetensors)}")
+print(f"Safetensors bytes: {bytes_to_gib(local_safetensor_bytes):.2f} GiB")
+for p in local_safetensors:
+    print(f"- {p.name}: {bytes_to_gib(p.stat().st_size):.2f} GiB")
+```
+
+```text
+    /home/username/.local/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py:205: UserWarning: The `local_dir_use_symlinks` argument is deprecated and ignored in `snapshot_download`. Downloading to a local directory does not use symlinks anymore.
+      warnings.warn(
+    Fetching 12 files: 100%|███████████████| 12/12 [00:37<00:00,  3.09s/it]
+
+    hf_transfer_snapshot_download: 37.315s
+    Downloaded to: /tmp/vajra-bench/meta-llama--Meta-Llama-3-8B
+    Safetensors files: 4
+    Safetensors bytes: 14.96 GiB
+    - model-00001-of-00004.safetensors: 4.63 GiB
+    - model-00002-of-00004.safetensors: 4.66 GiB
+    - model-00003-of-00004.safetensors: 4.58 GiB
+    - model-00004-of-00004.safetensors: 1.09 GiB
+```
+
+
+
+
+
+## Step 2: Upload The Local Model Directory To S3
+
+This creates the shared S3 source used by both loaders. The benchmark itself starts after this cell.
+
+
+```python
+aws_env = os.environ.copy()
+aws_env.update({
+    "AWS_ACCESS_KEY_ID": "<YOUR_AWS_ACCESS_KEY_ID>",
+    "AWS_SECRET_ACCESS_KEY": "<YOUR_AWS_SECRET_ACCESS_KEY>",
+    "AWS_REGION": "ap-south-1",
+    "AWS_DEFAULT_REGION": "ap-south-1",
+})
+
+aws_cmd = [
+    "aws", "s3", "sync", str(local_model_path), S3_URI,
+    "--only-show-errors",
+    "--exclude", "*",
+    "--include", "*.safetensors",
+    "--include", "*.safetensors.index.json",
+    "--include", "*.json",
+    "--include", "tokenizer*",
+    "--include", "*.model",
+]
+
+# aws_profile = os.getenv("AWS_PROFILE")
+# if aws_profile:
+#     aws_cmd.extend(["--profile", aws_profile])
+
+# print(" ".join(aws_cmd))
+# subprocess.run(aws_cmd, check=True, env=aws_env)
+
+s3_safetensor_paths = [join_s3(S3_URI, p.name) for p in local_safetensors]
+print("S3 safetensors source:")
+for path in s3_safetensor_paths:
+    print("-", path)
+```
+
+```text
+    S3 safetensors source:
+    - s3://your-bucket/path/to/model/model-00001-of-00004.safetensors
+    - s3://your-bucket/path/to/model/model-00002-of-00004.safetensors
+    - s3://your-bucket/path/to/model/model-00003-of-00004.safetensors
+    - s3://your-bucket/path/to/model/model-00004-of-00004.safetensors
+```
+
+
+## Step 3: Benchmark Run:ai Model Streamer From S3 To GPU
+
+This uses the same S3 safetensors files and attempts to materialize tensors on `BENCH_DEVICE`.
+
+
+```python
+release_gpu_objects("runai_tensors", "vajra_tensors")
+cuda_memory_snapshot("before runai")
+
+os.environ["RUNAI_STREAMER_CONCURRENCY"] = str(RUNAI_CONCURRENCY)
+
+from runai_model_streamer import SafetensorsStreamer
+
+runai_tensors = {}
+
+from runai_model_streamer.s3_utils.s3_utils import S3Credentials
+
+os.environ.update({
+    "AWS_ACCESS_KEY_ID": aws_env["AWS_ACCESS_KEY_ID"],
+    "AWS_SECRET_ACCESS_KEY": aws_env["AWS_SECRET_ACCESS_KEY"],
+    "AWS_REGION": "ap-south-1",
+    "AWS_DEFAULT_REGION": "ap-south-1",
+    "AWS_EC2_METADATA_DISABLED": "true",
+    "RUNAI_STREAMER_NO_BOTO3_SESSION": "1",
+    "RUNAI_STREAMER_S3_TRACE": "1",
+})
+
+s3_credentials = S3Credentials(
+    access_key_id=aws_env["AWS_ACCESS_KEY_ID"],
+    secret_access_key=aws_env["AWS_SECRET_ACCESS_KEY"],
+    region_name="ap-south-1",
+    endpoint="https://s3.ap-south-1.amazonaws.com",
+)
+
+print(s3_credentials)
+
+with timed_case("runai_model_streamer_s3_to_gpu") as rec:
+    with SafetensorsStreamer() as streamer:
+        try:
+            streamer.stream_files(
+                s3_safetensor_paths,
+                s3_credentials=s3_credentials,
+                device=DEVICE,
+                is_distributed=False,
+            )
+        except TypeError:
+            # Compatibility fallback for older package signatures.
+            streamer.stream_files(s3_safetensor_paths)
+
+        for name, tensor in streamer.get_tensors():
+            if DEVICE.startswith("cuda") and not tensor.is_cuda:
+                tensor = tensor.to(DEVICE, non_blocking=True)
+            runai_tensors[name] = tensor
+
+    if torch.cuda.is_available():
+        torch.cuda.synchronize()
+
+    rec["tensor_count"] = len(runai_tensors)
+    rec["tensor_gib"] = bytes_to_gib(tensor_collection_nbytes(runai_tensors))
+    rec["source_gib"] = bytes_to_gib(local_safetensor_bytes)
+
+cuda_memory_snapshot("after runai")
+print(f"Run:ai tensors loaded: {len(runai_tensors)}")
+```
+
+```text
+    before runai: allocated=0.00 GiB, reserved=0.00 GiB
+    [environment variables redacted]
+    <runai_model_streamer.s3_utils.s3_utils.S3Credentials object at 0x7c295413e570>
+    runai_model_streamer_s3_to_gpu: 15.854s
+    after runai: allocated=14.96 GiB, reserved=15.08 GiB
+    Run:ai tensors loaded: 291
+```
+
+
+## Step 4: Release Run:ai GPU Tensors
+
+This is necessary so Vajra gets a clean GPU memory state.
+
+
+```python
+release_gpu_objects("runai_tensors")
+cuda_memory_snapshot("after runai cleanup")
+```
+
+```text
+    after runai cleanup: allocated=0.11 GiB, reserved=0.11 GiB
+```
+
+
+## Step 5: Benchmark Vajra From The Same S3 Source To GPU
+
+`VajraStreamer.load()` receives the S3 prefix, not the individual safetensors file list. This matches the current resolver flow.
+
+
+```python
+import faulthandler
+faulthandler.enable()
+```
+
+
+```python
+release_gpu_objects("vajra_tensors")
+cuda_memory_snapshot("before vajra")
+
+from vajra import StreamConfig, VajraStreamer
+
+vajra_config = StreamConfig(
+    auth_token=HF_TOKEN or "",
+    chunk_size_mb=VAJRA_CHUNK_SIZE_MB,
+    chunk_workers=VAJRA_CHUNK_WORKERS,
+    gpu_workers=VAJRA_GPU_WORKERS,
+    disable_cache=True,
+    log_level=VAJRA_LOG_LEVEL,
+)
+
+with timed_case("vajra_streamer_s3_to_gpu") as rec:
+    with VajraStreamer(vajra_config) as streamer:
+        vajra_tensors = streamer.load(S3_URI) # streamer.load(MODEL_ID)
+
+    if torch.cuda.is_available():
+        torch.cuda.synchronize()
+
+    rec["tensor_count"] = len(vajra_tensors)
+    rec["tensor_gib"] = bytes_to_gib(tensor_collection_nbytes(vajra_tensors))
+    rec["source_gib"] = bytes_to_gib(local_safetensor_bytes)
+
+cuda_memory_snapshot("after vajra")
+print(f"Vajra tensors loaded: {len(vajra_tensors)}")
+```
+
+```text
+    before vajra: allocated=0.11 GiB, reserved=0.11 GiB
+    [Dlang API] stream_model entered
+    [Dlang API] converting url
+    [Dlang API] converting authToken
+    [Dlang API] setting defaults
+    [Dlang API] Preparing to spawn thread
+    [Dlang API] instantiating new Thread
+    [Dlang API] Starting thread
+    [Dlang API] Waiting for thread to join
+    [Dlang API] Thread started
+    [Dlang API] Setting up workers
+    [Dlang API] runTask has been scheduled
+    [Dlang API] Running event loop
+    [Dlang API] HTTPClientSettings configured
+    [Dlang API] URL starts with s3://
+    Fetching S3 objects from: https://your-bucket.s3.ap-south-1.amazonaws.com/?[presigned query redacted]
+    Phase 1: Fetching S3 ListObjects from https://your-bucket.s3.ap-south-1.amazonaws.com/?[presigned query redacted]
+    [Dlang API] fetchS3ListObjects: starting requestHTTP
+    [Dlang API] fetchS3ListObjects: setting method to GET
+    [Dlang API] fetchS3ListObjects: received response with statusCode: 200
+    [Dlang API] fetchS3ListObjects: reading body
+    [Dlang API] fetchS3ListObjects: body read successfully, length: 4303
+    [Dlang API] fetchS3ListObjects: returning xmlStr
+    Phase 1: Fetching S3 ListObjects completed, received 4303 bytes
+    Phase 1: Parsing XML to find .safetensors files
+    Resolved S3 URL to 4 file(s)
+    [Dlang API] resolveS3Url completed
+    [Dlang API] Resolved Model ID to 4 URL(s)
+    [Dlang API] Inside runTask: Creating DownloadManager
+    [Manager] Registered consumer: gpu_loader
+    [Dlang API] Inside runTask: DownloadManager created successfully, calling dm.call
+    [Manager] Queuing Target URL: https://your-bucket.s3.ap-south-1.amazonaws.com/path/to/model/model-00001-of-00004.safetensors?[presigned query redacted]
+    [Manager] Queuing Target URL: https://your-bucket.s3.ap-south-1.amazonaws.com/path/to/model/model-00002-of-00004.safetensors?[presigned query redacted]
+    [Manager] Queuing Target URL: https://your-bucket.s3.ap-south-1.amazonaws.com/path/to/model/model-00003-of-00004.safetensors?[presigned query redacted]
+    [Manager] Queuing Target URL: https://your-bucket.s3.ap-south-1.amazonaws.com/path/to/model/model-00004-of-00004.safetensors?[presigned query redacted]
+    [File 3] Total File Size: 4.58 Gb
+    [File 3] Header Size: 11656 bytes
+    [File 4] Total File Size: 1.09 Gb
+    [File 4] Header Size: 560 bytes
+    [File 1] Total File Size: 4.63 Gb
+    [File 1] Header Size: 9512 bytes
+    [File 2] Total File Size: 4.66 Gb
+    [File 2] Header Size: 12120 bytes
+    [File 3] Parsed JSON Header successfully.
+    [GPULoader] File 3: Allocated 4915904512 bytes of VRAM
+    Allocated 4915904512 bytes of raw memory at 7C20F6FD3010
+    [File 4] Parsed JSON Header successfully.
+    [GPULoader] File 4: Allocated 1168138240 bytes of VRAM
+    Allocated 1168138240 bytes of raw memory at 7C23A55EB010
+    [File 1] Parsed JSON Header successfully.
+    [GPULoader] File 1: Allocated 4976689152 bytes of VRAM
+    Allocated 4976689152 bytes of raw memory at 7C1EA35DB010
+    [File 2] Parsed JSON Header successfully.
+    [GPULoader] File 2: Allocated 4999790592 bytes of VRAM
+    Allocated 4999790592 bytes of raw memory at 7C1BBBFD3010
+    [File 4] ------------------------------------------------
+    [File 4] RAM Download Complete!
+    [File 4] Time: 4.96 seconds
+    [File 4] Throughput: 1.88 Gbps
+    [File 4] ------------------------------------------------
+    [File 3] ------------------------------------------------
+    [File 3] RAM Download Complete!
+    [File 3] Time: 9.03 seconds
+    [File 3] Throughput: 4.36 Gbps
+    [File 3] ------------------------------------------------
+    [File 2] ------------------------------------------------
+    [File 2] RAM Download Complete!
+    [File 2] Time: 10.72 seconds
+    [File 2] Throughput: 3.73 Gbps
+    [File 2] ------------------------------------------------
+    [File 1] ------------------------------------------------
+    [File 1] RAM Download Complete!
+    [File 1] Time: 10.99 seconds
+    [File 1] Throughput: 3.62 Gbps
+    [File 1] ------------------------------------------------
+    ================================================
+    GLOBAL DOWNLOAD BENCHMARK (RAM LOAD COMPLETE)
+    ================================================
+    Total Files: 4
+    Total Fibers Spawned: 134
+    Total Cumulative Size: 14.96 GB
+    Time to First Chunk (GPU Start): 2.65 seconds
+    Total Time (Network to RAM): 11.37 seconds
+    Network Throughput: 11.30 Gbps
+    ================================================
+    [Manager] Background consumers (GPU / Disk) are finishing work. Waiting...
+    [Manager] Background processing complete.
+    [Manager] File 4 Total Active PCIe Transfer Time: 0.39 seconds
+    [Manager] File 3 Total Active PCIe Transfer Time: 1.46 seconds
+    [Manager] File 2 Total Active PCIe Transfer Time: 1.29 seconds
+    [Manager] File 1 Total Active PCIe Transfer Time: 1.29 seconds
+    ================================================
+    Total Active PCIe Transfer Time (Cumulative): 4.43 seconds
+    ================================================
+    [Manager] System completely loaded! GPU inference could start RIGHT NOW.
+    [Dlang API] Inside runTask: dm.call finished
+    [Dlang API] Inside runTask: DownloadManager error code: 0
+    [Dlang API] Event loop exited
+    [Python] Entering __exit__ block
+    [Python] ptr=True, num=True
+    [Python] Calling _lib.free_model_memory...
+    [Dlang API] Thread joined, returnCode: 0
+    [Dlang API] Mapping outputs...
+    [Dlang API] Counting tensors...
+    [Dlang API] Total tensors count: 291
+    [Dlang API] Allocating CTensor array...
+    [Dlang API] stream_model finished
+    [Dlang API] free_model_memory entered
+    [Python] _lib.free_model_memory returned
+    vajra_streamer_s3_to_gpu: 12.971s
+    after vajra: allocated=0.11 GiB, reserved=0.11 GiB
+    Vajra tensors loaded: 291
+    [Dlang API] free_model_memory finished
+```
+
+
+## Step 6: Benchmark Vajra From HF Source To GPU
+
+`VajraStreamer.load()` receives the HF source, not the individual safetensors file list. This matches the current resolver flow.
+
+
+```python
+release_gpu_objects("vajra_tensors")
+cuda_memory_snapshot("before vajra")
+
+from vajra import StreamConfig, VajraStreamer
+
+vajra_config = StreamConfig(
+    auth_token=HF_TOKEN or "",
+    chunk_size_mb=VAJRA_CHUNK_SIZE_MB,
+    chunk_workers=VAJRA_CHUNK_WORKERS,
+    gpu_workers=VAJRA_GPU_WORKERS,
+    disable_cache=True,
+    log_level=VAJRA_LOG_LEVEL,
+)
+
+with timed_case("vajra_streamer_HF_to_gpu") as rec:
+    with VajraStreamer(vajra_config) as streamer:
+        vajra_tensors = streamer.load(MODEL_ID) # streamer.load(S3_URI)
+
+    if torch.cuda.is_available():
+        torch.cuda.synchronize()
+
+    rec["tensor_count"] = len(vajra_tensors)
+    rec["tensor_gib"] = bytes_to_gib(tensor_collection_nbytes(vajra_tensors))
+    rec["source_gib"] = bytes_to_gib(local_safetensor_bytes)
+
+cuda_memory_snapshot("after vajra")
+print(f"Vajra tensors loaded: {len(vajra_tensors)}")
+```
+
+```text
+    before vajra: allocated=0.11 GiB, reserved=0.11 GiB
+    [Dlang API] stream_model entered
+    [Dlang API] converting url
+    [Dlang API] converting authToken
+    [Dlang API] setting defaults
+    [Dlang API] Preparing to spawn thread
+    [Dlang API] instantiating new Thread
+    [Dlang API] Starting thread
+    [Dlang API] Waiting for thread to join
+    [Dlang API] Thread started
+    [Dlang API] Setting up workers
+    [Dlang API] runTask has been scheduled
+    [Dlang API] Running event loop
+    [Dlang API] HTTPClientSettings configured
+    [Dlang API] URL is a HuggingFace URL
+    Fetching model metadata from: https://huggingface.co/api/models/meta-llama/Meta-Llama-3-8B
+    Resolved Model ID to 4 URL(s)
+    [Dlang API] resolveHfUrl completed
+    [Dlang API] Resolved Model ID to 4 URL(s)
+    [Dlang API] Inside runTask: Creating DownloadManager
+    [Manager] Registered consumer: gpu_loader
+    [Dlang API] Inside runTask: DownloadManager created successfully, calling dm.call
+    [Manager] Queuing Target URL: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/model-00001-of-00004.safetensors
+    [Manager] Queuing Target URL: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/model-00002-of-00004.safetensors
+    [Manager] Queuing Target URL: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/model-00003-of-00004.safetensors
+    [Manager] Queuing Target URL: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/model-00004-of-00004.safetensors
+    [File 1] Redirected to CDN: https://cas-bridge.xethub.hf.co/xet-bridge-us/661f...
+    [File 3] Redirected to CDN: https://cas-bridge.xethub.hf.co/xet-bridge-us/661f...
+    [File 4] Redirected to CDN: https://cas-bridge.xethub.hf.co/xet-bridge-us/661f...
+    [File 2] Redirected to CDN: https://cas-bridge.xethub.hf.co/xet-bridge-us/661f...
+    [File 3] Total File Size: 4.58 Gb
+    [File 3] Header Size: 11656 bytes
+    [File 4] Total File Size: 1.09 Gb
+    [File 4] Header Size: 560 bytes
+    [File 1] Total File Size: 4.63 Gb
+    [File 1] Header Size: 9512 bytes
+    [File 4] Parsed JSON Header successfully.
+    [GPULoader] File 4: Allocated 1168138240 bytes of VRAM
+    Allocated 1168138240 bytes of raw memory at 7C248C5F9010
+    [File 3] Parsed JSON Header successfully.
+    [GPULoader] File 3: Allocated 4915904512 bytes of VRAM
+    Allocated 4915904512 bytes of raw memory at 7C1FD0FD3010
+    [File 2] Total File Size: 4.66 Gb
+    [File 2] Header Size: 12120 bytes
+    [File 1] Parsed JSON Header successfully.
+    [GPULoader] File 1: Allocated 4976689152 bytes of VRAM
+    Allocated 4976689152 bytes of raw memory at 7C1D7D5DB010
+    [File 2] Parsed JSON Header successfully.
+    [GPULoader] File 2: Allocated 4999790592 bytes of VRAM
+    Allocated 4999790592 bytes of raw memory at 7C1A8FFD3010
+    [File 4] ------------------------------------------------
+    [File 4] RAM Download Complete!
+    [File 4] Time: 3.87 seconds
+    [File 4] Throughput: 2.41 Gbps
+    [File 4] ------------------------------------------------
+    [File 3] ------------------------------------------------
+    [File 3] RAM Download Complete!
+    [File 3] Time: 6.38 seconds
+    [File 3] Throughput: 6.16 Gbps
+    [File 3] ------------------------------------------------
+    [File 2] ------------------------------------------------
+    [File 2] RAM Download Complete!
+    [File 2] Time: 6.40 seconds
+    [File 2] Throughput: 6.25 Gbps
+    [File 2] ------------------------------------------------
+    [File 1] ------------------------------------------------
+    [File 1] RAM Download Complete!
+    [File 1] Time: 6.54 seconds
+    [File 1] Throughput: 6.09 Gbps
+    [File 1] ------------------------------------------------
+    ================================================
+    GLOBAL DOWNLOAD BENCHMARK (RAM LOAD COMPLETE)
+    ================================================
+    Total Files: 4
+    Total Fibers Spawned: 134
+    Total Cumulative Size: 14.96 GB
+    Time to First Chunk (GPU Start): 0.67 seconds
+    Total Time (Network to RAM): 6.92 seconds
+    Network Throughput: 18.56 Gbps
+    ================================================
+    [Manager] Background consumers (GPU / Disk) are finishing work. Waiting...
+    [Manager] Background processing complete.
+    [Manager] File 4 Total Active PCIe Transfer Time: 1.76 seconds
+    [Manager] File 3 Total Active PCIe Transfer Time: 6.46 seconds
+    [Manager] File 2 Total Active PCIe Transfer Time: 5.85 seconds
+    [Manager] File 1 Total Active PCIe Transfer Time: 5.94 seconds
+    ================================================
+    Total Active PCIe Transfer Time (Cumulative): 20.01 seconds
+    ================================================
+    [Manager] System completely loaded! GPU inference could start RIGHT NOW.
+    [Dlang API] Inside runTask: dm.call finished
+    [Dlang API] Inside runTask: DownloadManager error code: 0
+    [Dlang API] Event loop exited
+    [Python] Entering __exit__ block
+    [Python] ptr=True, num=True
+    [Python] Calling _lib.free_model_memory...
+    [Dlang API] Thread joined, returnCode: 0
+    [Dlang API] Mapping outputs...
+    [Dlang API] Counting tensors...
+    [Dlang API] Total tensors count: 291
+    [Dlang API] Allocating CTensor array...
+    [Dlang API] stream_model finished
+    [Dlang API] free_model_memory entered
+    [Python] _lib.free_model_memory returned
+    vajra_streamer_HF_to_gpu: 8.162s
+    after vajra: allocated=0.11 GiB, reserved=0.11 GiB
+    Vajra tensors loaded: 291
+    [Dlang API] free_model_memory finished
+```
+
+
+## Step 7: Compare Results
+
+
+```python
+results_df = pd.DataFrame(benchmark_results)
+if not results_df.empty:
+    results_df["throughput_gib_per_sec"] = results_df["source_gib"] / results_df["seconds"]
+    display(results_df)
+
+    if {"runai_model_streamer_s3_to_gpu", "vajra_streamer_s3_to_gpu"}.issubset(set(results_df["name"])):
+        hf_transfer_snapshot_seconds = float(results_df.loc[results_df["name"] == "hf_transfer_snapshot_download", "seconds"].iloc[-1])
+        runai_seconds = float(results_df.loc[results_df["name"] == "runai_model_streamer_s3_to_gpu", "seconds"].iloc[-1])
+        vajra_seconds = float(results_df.loc[results_df["name"] == "vajra_streamer_s3_to_gpu", "seconds"].iloc[-1])
+        vajra_hf_seconds = float(results_df.loc[results_df["name"] == "vajra_streamer_HF_to_gpu", "seconds"].iloc[-1])
+
+        # vajra vs runai
+        vajra_runai_speedup = runai_seconds / vajra_seconds
+        improvement_pct = (vajra_runai_speedup - 1.0) * 100.0
+        print(f"Vajra speedup vs Run:ai: {vajra_runai_speedup:.2f}x ({improvement_pct:.1f}% faster)")
+
+        # vajra vs hf_transfer
+        vajra_HF_speedup = hf_transfer_snapshot_seconds / vajra_hf_seconds
+        improvement_pct = (vajra_HF_speedup - 1.0) * 100.0
+        print(f"Vajra speedup vs HF: {vajra_HF_speedup:.2f}x ({improvement_pct:.1f}% faster)")
+else:
+    print("No benchmark results recorded.")
+```
+
+
+<div>
+<table border="1" className="dataframe">
+  <thead>
+    <tr style={{textAlign: 'right'}}>
+      <th></th>
+      <th>name</th>
+      <th>seconds</th>
+      <th>source_gib</th>
+      <th>tensor_count</th>
+      <th>tensor_gib</th>
+      <th>throughput_gib_per_sec</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>hf_transfer_snapshot_download</td>
+      <td>37.315396</td>
+      <td>14.957559</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>0.400841</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>runai_model_streamer_s3_to_gpu</td>
+      <td>15.854299</td>
+      <td>14.957559</td>
+      <td>291</td>
+      <td>14.957527</td>
+      <td>0.943439</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>vajra_streamer_s3_to_gpu</td>
+      <td>12.970784</td>
+      <td>14.957559</td>
+      <td>291</td>
+      <td>14.957527</td>
+      <td>1.153173</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>vajra_streamer_HF_to_gpu</td>
+      <td>8.161826</td>
+      <td>14.957559</td>
+      <td>291</td>
+      <td>14.957527</td>
+      <td>1.832624</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+```text
+    Vajra speedup vs Run:ai: 1.22x (22.2% faster)
+    Vajra speedup vs HF: 4.57x (357.2% faster)
+```
+
+
+## Cleanup
+
+Run this when finished if you want to release GPU memory before continuing the same notebook session.
+
+
+```python
+release_gpu_objects("runai_tensors", "vajra_tensors")
+cuda_memory_snapshot("final cleanup")
+```
+
+```text
+    final cleanup: allocated=0.11 GiB, reserved=0.11 GiB
+```

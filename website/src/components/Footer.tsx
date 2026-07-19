@@ -41,13 +41,11 @@ export const Footer: React.FC = () => {
               className="text-ink-soft transition-colors hover:text-accent hover:no-underline">
               Documentation
             </Link>
-            {/* Temporarily disabled — re-enable when blog is ready
             <Link
               to="/blog"
               className="text-ink-soft transition-colors hover:text-accent hover:no-underline">
               Blog
             </Link>
-            */}
           </div>
         </div>
       </div>
