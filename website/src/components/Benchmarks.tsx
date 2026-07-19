@@ -83,7 +83,8 @@ export const Benchmarks: React.FC = () => {
           <h3 className="mb-[22px] font-display text-[1.7rem] font-semibold tracking-[-0.02em] text-ink">
             Vajra vs Hugging Face Model Loader
           </h3>
-          <div className="mb-[34px] flex flex-wrap items-center gap-[22px]">
+
+          <div className="mb-[34px] flex flex-wrap items-center justify-between gap-[22px]">
             <span className="rounded-lg bg-sage-soft px-3 py-1.5 font-mono text-[0.82rem] font-semibold uppercase tracking-[0.08em] text-sage">
               Lower is better
             </span>
@@ -155,7 +156,8 @@ export const Benchmarks: React.FC = () => {
           <h3 className="mb-[22px] font-display text-[1.7rem] font-semibold tracking-[-0.02em] text-ink">
             Vajra vs Run:AI Model Streamer
           </h3>
-          <div className="mb-[34px] flex flex-wrap items-center gap-[22px]">
+
+          <div className="mb-[34px] flex flex-wrap items-center justify-between gap-[22px]">
             <span className="rounded-lg bg-sage-soft px-3 py-1.5 font-mono text-[0.82rem] font-semibold uppercase tracking-[0.08em] text-sage">
               Lower is better
             </span>
