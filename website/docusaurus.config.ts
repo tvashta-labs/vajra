@@ -83,8 +83,7 @@ const config: Config = {
       },
       items: [
         { type: 'doc', docId: 'overview', position: 'left', label: 'Docs' },
-        // Temporarily disabled — re-enable when blog is ready
-        // { to: '/blog', label: 'Blog', position: 'left' },
+        { to: '/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/tvashta-labs/vajra',
           position: 'right',

@@ -81,13 +81,11 @@ export const Navbar: React.FC = () => {
             className="hidden transition-colors hover:text-accent hover:no-underline sm:inline-flex">
             Docs
           </Link>
-          {/* Temporarily disabled — re-enable when blog is ready
           <Link
             to="/blog"
             className="hidden transition-colors hover:text-accent hover:no-underline sm:inline-flex">
             Blog
           </Link>
-          */}
           <a
             href="https://github.com/tvashta-labs/vajra"
             className="inline-flex items-center gap-[7px] transition-colors hover:text-accent hover:no-underline"
