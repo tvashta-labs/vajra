@@ -201,20 +201,20 @@ body::after {
   color: var(--accent) !important;
 }
 
-/* Match homepage GitHub link: octocat + label */
-.navbar-github {
+/* Match homepage social links: icon + label */
+.navbar-social {
   display: inline-flex;
   align-items: center;
   gap: 7px;
 }
 
-.navbar-github svg {
+.navbar-social svg {
   width: 17px;
   height: 17px;
   flex-shrink: 0;
 }
 
-/* Space between GitHub and the color-mode toggle */
+/* Space between social links and the color-mode toggle */
 .navbar__items--right > .navbar__item {
   margin-right: 0.85rem;
 }
