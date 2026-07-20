@@ -71,6 +71,9 @@ html {
   --ifm-color-emphasis-200: var(--line);
   --ifm-color-emphasis-300: #d1d5db;
 
+  /* Floating pill navbar: 18px top offset + ~56px pill + breathing room.
+     Docs/blog sticky offsets (sidebar, TOC, anchor scroll) derive from this. */
+  --ifm-navbar-height: 92px;
   --ifm-navbar-background-color: rgba(255, 255, 255, 0.85);
   --ifm-navbar-shadow: var(--shadow);
   --ifm-footer-background-color: var(--paper);
@@ -177,31 +180,39 @@ body::after {
 }
 
 /* Docs / blog chrome */
-.navbar {
-  background-color: var(--ifm-navbar-background-color) !important;
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line) !important;
-  box-shadow: var(--shadow) !important;
+
+/* The pill header keeps the `navbar` class because Docusaurus theme code
+   locates the header via document.querySelector('.navbar') (TOC highlight
+   offset). Undo the Infima navbar chrome that the class brings along; the
+   pill look is styled on the inner .landing-nav element instead. */
+.navbar.vajra-landing {
+  display: block;
+  height: auto;
+  padding: 0 1.75rem; /* keep in sync with the px-7 utility on the header */
+  background: transparent;
+  box-shadow: none;
 }
 
-.navbar__title {
-  font-family: 'IBM Plex Sans', system-ui, sans-serif;
-  font-weight: 600;
-  color: var(--ink) !important;
-  letter-spacing: -0.01em;
+/* Restore Infima's behavior of hiding the navbar when printing */
+@media print {
+  .navbar.vajra-landing {
+    display: none;
+  }
 }
 
-.navbar__link {
-  font-weight: 500;
-  color: var(--ink-soft) !important;
+/* Breathing room between the floating pill header and the page content
+   (docs, blog, and other non-landing pages). */
+.main-wrapper {
+  padding-top: 2.25rem;
 }
 
-.navbar__link:hover,
-.navbar__link--active {
-  color: var(--accent) !important;
+/* The landing page (its root div carries .vajra-landing) manages its own
+   spacing below the header, so cancel the extra padding there. */
+.main-wrapper > .vajra-landing {
+  margin-top: -2.25rem;
 }
 
-/* Match homepage social links: icon + label */
+/* Social links in the mobile sidebar menu: icon + label */
 .navbar-social {
   display: inline-flex;
   align-items: center;
@@ -214,19 +225,13 @@ body::after {
   flex-shrink: 0;
 }
 
-/* Space between social links and the color-mode toggle */
-.navbar__items--right > .navbar__item {
-  margin-right: 0.85rem;
-}
-
 .theme-doc-sidebar-container {
   border-right: 1px solid var(--line) !important;
   background-color: transparent !important;
 }
 
 .menu__link--active,
-.pagination-nav__link:hover,
-.navbar__link--active {
+.pagination-nav__link:hover {
   background-color: var(--accent-soft) !important;
   color: var(--accent) !important;
 }
