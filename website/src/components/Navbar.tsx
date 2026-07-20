@@ -1,7 +1,10 @@
 import React from 'react';
+import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
+import { useNavbarMobileSidebar } from '@docusaurus/theme-common/internal';
+import NavbarMobileSidebar from '@theme/Navbar/MobileSidebar';
 
 function BrandMark() {
   const light = useBaseUrl('/img/logo-light.jpeg');
@@ -68,13 +71,55 @@ function ThemeToggle() {
   );
 }
 
-export const Navbar: React.FC = () => {
+function MobileSidebarToggle() {
+  const mobileSidebar = useNavbarMobileSidebar();
+
+  if (mobileSidebar.disabled) {
+    return null;
+  }
+
   return (
-    <header className="sticky top-[18px] z-50 px-7">
+    <button
+      type="button"
+      className="mr-3 inline-flex cursor-pointer items-center border-0 bg-transparent p-0 text-ink min-[997px]:hidden"
+      aria-label="Toggle navigation bar"
+      aria-expanded={mobileSidebar.shown}
+      onClick={mobileSidebar.toggle}>
+      <svg
+        className="h-6 w-6"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      </svg>
+    </button>
+  );
+}
+
+export const Navbar: React.FC = () => {
+  const mobileSidebar = useNavbarMobileSidebar();
+
+  return (
+    <header
+      className={clsx(
+        // `navbar` is required: Docusaurus theme code measures the header via
+        // document.querySelector('.navbar') (e.g. TOC highlight offset).
+        // `vajra-landing` scopes the Tailwind base resets + pill-nav styles,
+        // which is what lets this navbar render identically outside the
+        // landing page (docs/blog).
+        'navbar vajra-landing sticky top-[18px] z-[200] px-7',
+        mobileSidebar.shown && 'navbar-sidebar--show',
+      )}>
       <nav
         className="landing-nav reveal mx-auto flex max-w-wrap items-center justify-between rounded-full border border-line px-4 py-3 pl-[22px] shadow-soft"
         style={{ animationDelay: '0.05s' }}>
-        <BrandMark />
+        <div className="flex items-center">
+          <MobileSidebarToggle />
+          <BrandMark />
+        </div>
         <div className="flex items-center gap-2 font-medium text-ink-soft sm:gap-5 md:gap-[30px] md:text-base">
           <Link
             to="/docs/quick-start"
@@ -134,6 +179,12 @@ export const Navbar: React.FC = () => {
           <ThemeToggle />
         </div>
       </nav>
+      <div
+        role="presentation"
+        className="navbar-sidebar__backdrop"
+        onClick={mobileSidebar.toggle}
+      />
+      <NavbarMobileSidebar />
     </header>
   );
 };

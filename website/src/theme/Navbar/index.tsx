@@ -1,14 +1,8 @@
 import React, { type ReactNode } from 'react';
-import Navbar from '@theme-original/Navbar';
-import type NavbarType from '@theme/Navbar';
-import type { WrapperProps } from '@docusaurus/types';
+import { Navbar as LandingNavbar } from '@site/src/components/Navbar';
 
-type Props = WrapperProps<typeof NavbarType>;
-
-export default function NavbarWrapper(props: Props): ReactNode {
-  return (
-    <>
-      <Navbar {...props} />
-    </>
-  );
+// Replace the default Docusaurus navbar with the landing-page pill navbar
+// on every page (home, docs, blog).
+export default function Navbar(): ReactNode {
+  return <LandingNavbar />;
 }
