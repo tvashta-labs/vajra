@@ -9,7 +9,7 @@ export const Hero: React.FC = () => {
           <span
             className="reveal mb-[26px] inline-flex items-center rounded-[10px] border border-line bg-surface px-4 py-[7px] text-[0.92rem] font-medium text-ink-soft shadow-soft"
             style={{ animationDelay: '0.1s' }}>
-            Open source Python SDK
+            Python SDK available
           </span>
           <h1
             className="reveal font-display text-[clamp(2.6rem,5.4vw,4.3rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-ink"
