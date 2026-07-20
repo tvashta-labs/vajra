@@ -547,36 +547,36 @@ print(f"Vajra tensors loaded: {len(vajra_tensors)}")
 
 ```text
     before vajra: allocated=0.11 GiB, reserved=0.11 GiB
-    [Dlang API] stream_model entered
-    [Dlang API] converting url
-    [Dlang API] converting authToken
-    [Dlang API] setting defaults
-    [Dlang API] Preparing to spawn thread
-    [Dlang API] instantiating new Thread
-    [Dlang API] Starting thread
-    [Dlang API] Waiting for thread to join
-    [Dlang API] Thread started
-    [Dlang API] Setting up workers
-    [Dlang API] runTask has been scheduled
-    [Dlang API] Running event loop
-    [Dlang API] HTTPClientSettings configured
-    [Dlang API] URL starts with s3://
+    [Core API] stream_model entered
+    [Core API] converting url
+    [Core API] converting authToken
+    [Core API] setting defaults
+    [Core API] Preparing to spawn thread
+    [Core API] instantiating new Thread
+    [Core API] Starting thread
+    [Core API] Waiting for thread to join
+    [Core API] Thread started
+    [Core API] Setting up workers
+    [Core API] runTask has been scheduled
+    [Core API] Running event loop
+    [Core API] HTTPClientSettings configured
+    [Core API] URL starts with s3://
     Fetching S3 objects from: https://your-bucket.s3.ap-south-1.amazonaws.com/?[presigned query redacted]
     Phase 1: Fetching S3 ListObjects from https://your-bucket.s3.ap-south-1.amazonaws.com/?[presigned query redacted]
-    [Dlang API] fetchS3ListObjects: starting requestHTTP
-    [Dlang API] fetchS3ListObjects: setting method to GET
-    [Dlang API] fetchS3ListObjects: received response with statusCode: 200
-    [Dlang API] fetchS3ListObjects: reading body
-    [Dlang API] fetchS3ListObjects: body read successfully, length: 4303
-    [Dlang API] fetchS3ListObjects: returning xmlStr
+    [Core API] fetchS3ListObjects: starting requestHTTP
+    [Core API] fetchS3ListObjects: setting method to GET
+    [Core API] fetchS3ListObjects: received response with statusCode: 200
+    [Core API] fetchS3ListObjects: reading body
+    [Core API] fetchS3ListObjects: body read successfully, length: 4303
+    [Core API] fetchS3ListObjects: returning xmlStr
     Phase 1: Fetching S3 ListObjects completed, received 4303 bytes
     Phase 1: Parsing XML to find .safetensors files
     Resolved S3 URL to 4 file(s)
-    [Dlang API] resolveS3Url completed
-    [Dlang API] Resolved Model ID to 4 URL(s)
-    [Dlang API] Inside runTask: Creating DownloadManager
+    [Core API] resolveS3Url completed
+    [Core API] Resolved Model ID to 4 URL(s)
+    [Core API] Inside runTask: Creating DownloadManager
     [Manager] Registered consumer: gpu_loader
-    [Dlang API] Inside runTask: DownloadManager created successfully, calling dm.call
+    [Core API] Inside runTask: DownloadManager created successfully, calling dm.call
     [Manager] Queuing Target URL: https://your-bucket.s3.ap-south-1.amazonaws.com/path/to/model/model-00001-of-00004.safetensors?[presigned query redacted]
     [Manager] Queuing Target URL: https://your-bucket.s3.ap-south-1.amazonaws.com/path/to/model/model-00002-of-00004.safetensors?[presigned query redacted]
     [Manager] Queuing Target URL: https://your-bucket.s3.ap-south-1.amazonaws.com/path/to/model/model-00003-of-00004.safetensors?[presigned query redacted]
@@ -641,24 +641,24 @@ print(f"Vajra tensors loaded: {len(vajra_tensors)}")
     Total Active PCIe Transfer Time (Cumulative): 4.43 seconds
     ================================================
     [Manager] System completely loaded! GPU inference could start RIGHT NOW.
-    [Dlang API] Inside runTask: dm.call finished
-    [Dlang API] Inside runTask: DownloadManager error code: 0
-    [Dlang API] Event loop exited
+    [Core API] Inside runTask: dm.call finished
+    [Core API] Inside runTask: DownloadManager error code: 0
+    [Core API] Event loop exited
     [Python] Entering __exit__ block
     [Python] ptr=True, num=True
     [Python] Calling _lib.free_model_memory...
-    [Dlang API] Thread joined, returnCode: 0
-    [Dlang API] Mapping outputs...
-    [Dlang API] Counting tensors...
-    [Dlang API] Total tensors count: 291
-    [Dlang API] Allocating CTensor array...
-    [Dlang API] stream_model finished
-    [Dlang API] free_model_memory entered
+    [Core API] Thread joined, returnCode: 0
+    [Core API] Mapping outputs...
+    [Core API] Counting tensors...
+    [Core API] Total tensors count: 291
+    [Core API] Allocating CTensor array...
+    [Core API] stream_model finished
+    [Core API] free_model_memory entered
     [Python] _lib.free_model_memory returned
     vajra_streamer_s3_to_gpu: 12.971s
     after vajra: allocated=0.11 GiB, reserved=0.11 GiB
     Vajra tensors loaded: 291
-    [Dlang API] free_model_memory finished
+    [Core API] free_model_memory finished
 ```
 
 
@@ -699,27 +699,27 @@ print(f"Vajra tensors loaded: {len(vajra_tensors)}")
 
 ```text
     before vajra: allocated=0.11 GiB, reserved=0.11 GiB
-    [Dlang API] stream_model entered
-    [Dlang API] converting url
-    [Dlang API] converting authToken
-    [Dlang API] setting defaults
-    [Dlang API] Preparing to spawn thread
-    [Dlang API] instantiating new Thread
-    [Dlang API] Starting thread
-    [Dlang API] Waiting for thread to join
-    [Dlang API] Thread started
-    [Dlang API] Setting up workers
-    [Dlang API] runTask has been scheduled
-    [Dlang API] Running event loop
-    [Dlang API] HTTPClientSettings configured
-    [Dlang API] URL is a HuggingFace URL
+    [Core API] stream_model entered
+    [Core API] converting url
+    [Core API] converting authToken
+    [Core API] setting defaults
+    [Core API] Preparing to spawn thread
+    [Core API] instantiating new Thread
+    [Core API] Starting thread
+    [Core API] Waiting for thread to join
+    [Core API] Thread started
+    [Core API] Setting up workers
+    [Core API] runTask has been scheduled
+    [Core API] Running event loop
+    [Core API] HTTPClientSettings configured
+    [Core API] URL is a HuggingFace URL
     Fetching model metadata from: https://huggingface.co/api/models/meta-llama/Meta-Llama-3-8B
     Resolved Model ID to 4 URL(s)
-    [Dlang API] resolveHfUrl completed
-    [Dlang API] Resolved Model ID to 4 URL(s)
-    [Dlang API] Inside runTask: Creating DownloadManager
+    [Core API] resolveHfUrl completed
+    [Core API] Resolved Model ID to 4 URL(s)
+    [Core API] Inside runTask: Creating DownloadManager
     [Manager] Registered consumer: gpu_loader
-    [Dlang API] Inside runTask: DownloadManager created successfully, calling dm.call
+    [Core API] Inside runTask: DownloadManager created successfully, calling dm.call
     [Manager] Queuing Target URL: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/model-00001-of-00004.safetensors
     [Manager] Queuing Target URL: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/model-00002-of-00004.safetensors
     [Manager] Queuing Target URL: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/model-00003-of-00004.safetensors
@@ -788,24 +788,24 @@ print(f"Vajra tensors loaded: {len(vajra_tensors)}")
     Total Active PCIe Transfer Time (Cumulative): 20.01 seconds
     ================================================
     [Manager] System completely loaded! GPU inference could start RIGHT NOW.
-    [Dlang API] Inside runTask: dm.call finished
-    [Dlang API] Inside runTask: DownloadManager error code: 0
-    [Dlang API] Event loop exited
+    [Core API] Inside runTask: dm.call finished
+    [Core API] Inside runTask: DownloadManager error code: 0
+    [Core API] Event loop exited
     [Python] Entering __exit__ block
     [Python] ptr=True, num=True
     [Python] Calling _lib.free_model_memory...
-    [Dlang API] Thread joined, returnCode: 0
-    [Dlang API] Mapping outputs...
-    [Dlang API] Counting tensors...
-    [Dlang API] Total tensors count: 291
-    [Dlang API] Allocating CTensor array...
-    [Dlang API] stream_model finished
-    [Dlang API] free_model_memory entered
+    [Core API] Thread joined, returnCode: 0
+    [Core API] Mapping outputs...
+    [Core API] Counting tensors...
+    [Core API] Total tensors count: 291
+    [Core API] Allocating CTensor array...
+    [Core API] stream_model finished
+    [Core API] free_model_memory entered
     [Python] _lib.free_model_memory returned
     vajra_streamer_HF_to_gpu: 8.162s
     after vajra: allocated=0.11 GiB, reserved=0.11 GiB
     Vajra tensors loaded: 291
-    [Dlang API] free_model_memory finished
+    [Core API] free_model_memory finished
 ```
 
 
@@ -838,10 +838,10 @@ else:
 ```
 
 
-<div>
-<table border="1" className="dataframe">
+<div className="dataframe-wrap">
+<table className="dataframe">
   <thead>
-    <tr style={{textAlign: 'right'}}>
+    <tr>
       <th></th>
       <th>name</th>
       <th>seconds</th>
