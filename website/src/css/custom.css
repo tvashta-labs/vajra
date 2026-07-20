@@ -274,6 +274,259 @@ body::after {
   box-shadow: var(--shadow) !important;
 }
 
+/* Blog list: render the post title like the individual post page (dark ink,
+   3rem) instead of the default link blue, so the two pages read consistently.
+   The title is still a link — hover reveals the accent for affordance. */
+.blog-list-page article header h2 {
+  font-size: 2.1rem;
+  line-height: 1.25;
+}
+
+.blog-list-page article header h2 a {
+  color: var(--ink);
+}
+
+.blog-list-page article header h2 a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* Blog list: make the entire post card clickable. The title link owns a
+   full-card overlay (::after), so a click anywhere on the card opens the post
+   while keeping a single semantic anchor for accessibility. The card itself is
+   `position: relative`, and the article between them stays static so the
+   overlay resolves to the card (padding included). */
+.blog-list-page .card article header h2 a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* Keep "Read more" above the overlay so it retains its own hover state. */
+.blog-list-page .card .col.text--right {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Pandas dataframe tables (notebook output) ----------
+   The raw `.to_html()` output is unstyled; give it the site's card look with
+   monospace, right-aligned numeric columns. */
+.dataframe-wrap {
+  margin: 1.75rem 0;
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+}
+
+table.dataframe {
+  display: table;
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+table.dataframe thead th {
+  padding: 0.8rem 1.1rem;
+  background: var(--paper-2);
+  color: var(--ink);
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+  border: none;
+  border-bottom: 1px solid var(--line);
+}
+
+table.dataframe thead th:first-child,
+table.dataframe thead th:nth-child(2) {
+  text-align: left;
+}
+
+table.dataframe tbody th,
+table.dataframe tbody td {
+  padding: 0.7rem 1.1rem;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* Index column: quiet, left-aligned, not monospace. */
+table.dataframe tbody th {
+  text-align: left;
+  color: var(--muted);
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-weight: 500;
+}
+
+/* Name column (first data cell): left-aligned label, not monospace. */
+table.dataframe tbody td:first-of-type {
+  text-align: left;
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-weight: 500;
+}
+
+table.dataframe tbody tr:last-child th,
+table.dataframe tbody tr:last-child td {
+  border-bottom: none;
+}
+
+table.dataframe tbody tr:hover th,
+table.dataframe tbody tr:hover td {
+  background: var(--accent-soft);
+}
+
+/* ---------- Markdown tables (authored `| ... |` tables) ----------
+   Give the regular blog markdown tables the same card look as the dataframe
+   tables above so every table on a post reads consistently. Scoped to
+   `.markdown` (blog + doc post content) and excludes `.dataframe`, which keeps
+   its own scroll wrapper and monospace numeric columns. Column alignment from
+   markdown (e.g. `|---:|`) arrives as inline `text-align`, so it still wins. */
+.markdown table:not(.dataframe) {
+  display: table;
+  width: 100%;
+  margin: 1.75rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+}
+
+.markdown table:not(.dataframe) thead tr {
+  border: none;
+  background: none;
+}
+
+.markdown table:not(.dataframe) thead th {
+  padding: 0.8rem 1.1rem;
+  background: var(--paper-2);
+  color: var(--ink);
+  font-weight: 600;
+  text-align: left;
+  border: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.markdown table:not(.dataframe) tbody tr {
+  border: none;
+  background: none;
+}
+
+.markdown table:not(.dataframe) tbody th,
+.markdown table:not(.dataframe) tbody td {
+  padding: 0.7rem 1.1rem;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: none;
+}
+
+.markdown table:not(.dataframe) tbody tr:last-child th,
+.markdown table:not(.dataframe) tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.markdown table:not(.dataframe) tbody tr:hover th,
+.markdown table:not(.dataframe) tbody tr:hover td {
+  background: var(--accent-soft);
+}
+
+/* ---------- Recent posts sidebar card ----------
+   Plain CSS (not Tailwind utilities) so spacing is bundled directly via
+   custom.css and does not depend on regenerating tailwind-output.css. */
+.recent-posts__title {
+  font-size: var(--ifm-h3-font-size);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.recent-posts__year {
+  margin-top: 1.25rem;
+  margin-bottom: 0.2rem;
+  line-height: 1.2;
+}
+
+.recent-posts__list {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.recent-posts__item {
+  margin-top: 0.5rem;
+}
+
+.recent-posts__item:first-child {
+  margin-top: 0.15rem;
+}
+
+.recent-posts__link {
+  display: block;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.recent-posts__link:hover,
+.recent-posts__link--active {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ---------- Blog post / archive shell ----------
+   Replaces Infima's centered container so "Recent posts" hugs the left edge
+   with a minimal margin and the article takes the wide center column. */
+.blog-shell {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 1600px;
+  margin-inline: auto;
+  padding: 2rem clamp(1rem, 2.2vw, 2rem) 4rem;
+}
+
+@media (min-width: 997px) {
+  .blog-shell--with-sidebar.blog-shell--with-toc {
+    grid-template-columns: 240px minmax(0, 1fr) 220px;
+  }
+
+  .blog-shell--with-sidebar:not(.blog-shell--with-toc) {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+
+  .blog-shell:not(.blog-shell--with-sidebar).blog-shell--with-toc {
+    grid-template-columns: minmax(0, 1fr) 220px;
+  }
+}
+
+/* The desktop table of contents is only meaningful on wide screens. */
+@media (max-width: 996px) {
+  .blog-shell__toc {
+    display: none;
+  }
+}
+
+/* Blog list: the last post item carries Infima's margin-bottom--xl (5rem),
+   which leaves a large dead space at the bottom of the card. Drop it so the
+   card ends just below the final post.
+
+   Infima ships this margin as `!important` *inside* the `docusaurus.infima`
+   cascade layer. Cascade layers invert `!important` precedence (a layered
+   `!important` beats an unlayered one), so the override must join that same
+   layer — then normal specificity applies and this more specific selector wins. */
+@layer docusaurus.infima {
+  .blog-list-page .card article:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
 .navbar__search-input {
   background-color: var(--paper-2) !important;
   border: 1px solid var(--line) !important;
