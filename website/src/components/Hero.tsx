@@ -32,11 +32,11 @@ export const Hero: React.FC = () => {
               className="inline-flex items-center gap-2 rounded-full border border-transparent bg-ink px-[30px] py-[15px] text-[1.02rem] font-medium text-paper no-underline transition-all duration-250 hover:-translate-y-0.5 hover:bg-accent hover:text-white hover:no-underline hover:shadow-[0_14px_30px_-12px_rgba(37,99,235,0.7)]">
               Get started
             </Link>
-            <a
-              href="#benchmarks"
+            <Link
+              to="/blog/reproducible-vajra-runai-hugging-face-benchmark"
               className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-[30px] py-[15px] text-[1.02rem] font-medium text-ink no-underline transition-all duration-250 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:no-underline">
               View benchmarks →
-            </a>
+            </Link>
           </div>
         </div>
 
