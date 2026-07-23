@@ -72,7 +72,7 @@ export const Hero: React.FC = () => {
             <div>
               <div className="mb-[9px] flex items-baseline justify-between">
                 <span className="font-mono text-[1.05rem] font-medium tracking-[0.04em] text-ink-soft">
-                  RUN:AI
+                  NVIDIA RUN:AI
                 </span>
                 <span className="font-mono text-[1.1rem] font-semibold tabular-nums">
                   15.85s
@@ -88,7 +88,7 @@ export const Hero: React.FC = () => {
             <div>
               <div className="mb-[9px] flex items-baseline justify-between">
                 <span className="font-mono text-[1.05rem] font-medium tracking-[0.04em] text-ink-soft">
-                  HF_TRANSFER
+                  Hugging Face HF_TRANSFER
                 </span>
                 <span className="font-mono text-[1.1rem] font-semibold tabular-nums">
                   36.88s

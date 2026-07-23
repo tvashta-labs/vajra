@@ -114,7 +114,7 @@ export default function BenchmarkSnapshot(): React.ReactElement {
             gpuNote="GPU transfer begins (0.65s)"
           />
           <SnapshotBar
-            name="HF_TRANSFER"
+            name="Hugging Face HF_TRANSFER"
             time="36.88s"
             width="100%"
             delay="0.24s"
@@ -186,7 +186,7 @@ export default function BenchmarkSnapshot(): React.ReactElement {
             gpuNote="GPU transfer begins (2.65s)"
           />
           <SnapshotBar
-            name="RUN:AI MODEL STREAMER"
+            name="NVIDIA RUN:AI MODEL STREAMER"
             time="15.85s"
             width="100%"
             delay="0.24s"
