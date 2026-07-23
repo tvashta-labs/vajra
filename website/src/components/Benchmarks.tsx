@@ -78,7 +78,7 @@ export const Benchmarks: React.FC = () => {
         {/* vs Hugging Face */}
         <div className="mt-[30px] rounded-lg border border-line bg-surface p-8 shadow-soft">
           <div className="mb-2 font-mono text-[1.15rem] font-semibold uppercase tracking-[0.1em] text-muted">
-            Hugging Face Hub
+            Hugging Face Hub Source
           </div>
           <h3 className="mb-[22px] font-display text-[1.7rem] font-semibold tracking-[-0.02em] text-ink">
             Vajra vs Hugging Face Model Loader
