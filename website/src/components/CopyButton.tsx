@@ -3,9 +3,10 @@ import React, { useRef } from 'react';
 type CopyButtonProps = {
   text: string;
   label?: string;
+  variant?: 'default' | 'surface';
 };
 
-export function CopyButton({ text, label = 'Copy' }: CopyButtonProps) {
+export function CopyButton({ text, label = 'Copy', variant = 'default' }: CopyButtonProps) {
   const btnRef = useRef<HTMLButtonElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
@@ -57,7 +58,7 @@ export function CopyButton({ text, label = 'Copy' }: CopyButtonProps) {
     <button
       ref={btnRef}
       type="button"
-      className="copy-btn"
+      className={`copy-btn${variant === 'surface' ? ' copy-btn--surface' : ''}`}
       data-label="Copied!"
       aria-label={label}
       onClick={handleClick}>

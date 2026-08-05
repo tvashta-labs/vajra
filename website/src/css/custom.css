@@ -665,6 +665,18 @@ table.dataframe tbody tr:hover td {
   border-color: #33333a;
 }
 
+.vajra-landing .copy-btn.copy-btn--surface {
+  background: var(--surface);
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+.vajra-landing .copy-btn.copy-btn--surface:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .vajra-landing .copy-btn svg {
   width: 15px;
   height: 15px;
@@ -708,6 +720,11 @@ table.dataframe tbody tr:hover td {
   transition:
     opacity 0.18s,
     transform 0.18s;
+}
+
+.vajra-landing .copy-btn.copy-btn--surface::after {
+  right: auto;
+  left: calc(100% + 10px);
 }
 
 .vajra-landing .copy-btn.copied::after {

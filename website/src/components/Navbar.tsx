@@ -71,6 +71,29 @@ function ThemeToggle() {
   );
 }
 
+function ContactLink() {
+  return (
+    <Link
+      to="/contact"
+      className="inline-flex items-center gap-2 rounded-full border border-accent-border bg-accent-soft px-2.5 py-1.5 text-accent transition-colors hover:border-accent hover:bg-surface hover:text-accent hover:no-underline"
+      aria-label="Contact us">
+      <svg
+        className="h-[17px] w-[17px] shrink-0"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true">
+        <rect width="20" height="16" x="2" y="4" rx="2" />
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+      </svg>
+      <span className="hidden whitespace-nowrap min-[1100px]:inline">Contact us</span>
+    </Link>
+  );
+}
+
 function MobileSidebarToggle() {
   const mobileSidebar = useNavbarMobileSidebar();
 
@@ -163,7 +186,7 @@ export const Navbar: React.FC = () => {
           </a>
           <a
             href="https://www.linkedin.com/company/tvashta-labs"
-            className="inline-flex items-center gap-[7px] transition-colors hover:text-accent hover:no-underline"
+            className="hidden items-center gap-[7px] transition-colors hover:text-accent hover:no-underline sm:inline-flex"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn">
@@ -176,6 +199,7 @@ export const Navbar: React.FC = () => {
             </svg>
             <span className="hidden md:inline">LinkedIn</span>
           </a>
+          <ContactLink />
           <ThemeToggle />
         </div>
       </nav>
